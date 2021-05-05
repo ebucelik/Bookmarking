@@ -1,7 +1,6 @@
 package com.example;
 
 import com.example.logic.util.UrlUtil;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -23,7 +22,21 @@ public class BookmarkTest {
         // Act
         boolean result = urlUtil.validateUrl(input);
 
-        //Assert
+        // Assert
+        assertEquals(expected, result);
+    }
+
+    // Test Case - what if the URL is not valid?
+    @ParameterizedTest
+    @CsvSource({"http:/orf.at/,false"})
+    public void ensureInvalidUrlWillBeInvalidated(String input, boolean expected) {
+        // Arrange
+        UrlUtil urlUtil = new UrlUtil();
+
+        // Act
+        boolean result = urlUtil.validateUrl(input);
+
+        // Assert
         assertEquals(expected, result);
     }
 

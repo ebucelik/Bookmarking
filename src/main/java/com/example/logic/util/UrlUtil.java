@@ -1,10 +1,10 @@
 package com.example.logic.util;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.util.regex.Pattern;
 
 public class UrlUtil {
 
+    private final String URL_REGEX = "^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
     /**
      * Validate an URL
      *
@@ -12,11 +12,6 @@ public class UrlUtil {
      * @return true if URL is valid, false if URL is invalid
      */
     public boolean validateUrl(String urlToCheck) {
-        try {
-            new URL(urlToCheck);
-            return true;
-        } catch (MalformedURLException e) {
-            return false;
-        }
+        return Pattern.matches(URL_REGEX, urlToCheck);
     }
 }
