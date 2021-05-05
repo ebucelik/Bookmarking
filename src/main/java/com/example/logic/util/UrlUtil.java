@@ -5,6 +5,11 @@ import java.util.regex.Pattern;
 public class UrlUtil {
 
     private static final String URL_REGEX = "^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
+
+    private UrlUtil() {
+        throw new IllegalStateException("Utility class");
+    }
+
     /**
      * Validate an URL
      *
