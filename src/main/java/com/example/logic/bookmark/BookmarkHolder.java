@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookmarkHolder {
-    public List<String> bookmarks;
+    private List<String> bookmarks;
 
     /**
      * Initialize the list with the Bookmarks - Empty

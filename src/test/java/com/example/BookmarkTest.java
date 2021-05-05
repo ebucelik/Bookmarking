@@ -2,7 +2,6 @@ package com.example;
 
 import com.example.logic.bookmark.BookmarkHolder;
 import com.example.logic.util.UrlUtil;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -75,9 +74,23 @@ public class BookmarkTest {
         assertFalse(result);
     }
 
-    // Test Case - what if there is already URL in List?
-    // Test Case - what if the URL is valid?
-    // Test Case - what if the URL is not valid?
+    /**
+     * Ensure that valid URL will be added to the bookmark which already has URLs in the List
+     * @param inputUrl Valid URL to add to the bookmark
+     */
+    @ParameterizedTest
+    @CsvSource({"http://orf.at/", "https://www.google.at", "https://google.com"})
+    public void ensureValidUrlWillBeAddedToAlreadyUsedBookmark(String inputUrl) {
+        // Arrange
+        BookmarkHolder holder = new BookmarkHolder();
+
+        // Act
+        holder.addUrlAsBookmark("https://orf.at/");
+        boolean result = holder.addUrlAsBookmark(inputUrl);
+
+        // Assert
+        assertTrue(result);
+    }
 
 
 }
