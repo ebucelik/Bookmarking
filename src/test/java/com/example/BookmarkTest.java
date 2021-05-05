@@ -92,5 +92,21 @@ public class BookmarkTest {
         assertTrue(result);
     }
 
+    /**
+     * Ensure that invalid URL will not be added to the bookmark which already has URLs in the List
+     * @param inputUrl Invalid URL to add to the bookmark
+     */
+    @ParameterizedTest
+    @CsvSource({"http:/orf.at/", "htps://www.google.at", "https://www.google."})
+    public void ensureInvalidUrlWillNotBeAddedToAlreadyUsedBookmark(String inputUrl) {
+        // Arrange
+        BookmarkHolder holder = new BookmarkHolder();
 
+        // Act
+        holder.addUrlAsBookmark("https://orf.at/");
+        boolean result = holder.addUrlAsBookmark(inputUrl);
+
+        // Assert
+        assertFalse(result);
+    }
 }
