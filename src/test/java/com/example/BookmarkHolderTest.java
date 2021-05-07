@@ -7,7 +7,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class BookmarkTest {
+public class BookmarkHolderTest {
 
     /**
      * Ensure that a valid URL will be validated correctly
@@ -25,7 +25,7 @@ public class BookmarkTest {
     }
 
     /**
-     * Ensure that invald URL will be invalidated correctly
+     * Ensure that invalid URL will be invalidated correctly
      * @param input URL to validate
      * @param expected Validation Result of the Util Class
      */
