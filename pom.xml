@@ -53,6 +53,12 @@
             <version>5.7.1</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
 
         <!-- Javadoc plugin does not require to be explicitly stated-->
         <!-- Maven goal: mvn clean javadoc:javadoc javadoc:test-javadoc -->

@@ -6,14 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookmarkHolder {
-    private List<String> bookmarks;
-
+    private List<Bookmark> bookmarks;
+    private Bookmark bookmark;
     /**
      * Initialize the list with the Bookmarks - Empty
      */
     public BookmarkHolder() {
         bookmarks = new ArrayList<>();
     }
+
+    public Bookmark getBookmark(){ return bookmark; }
 
     /**
      * Only add valid URL to the Bookmark List
@@ -25,7 +27,21 @@ public class BookmarkHolder {
             return false;
         }
 
-        bookmarks.add(url);
+        bookmark = new Bookmark();
+        bookmark.setUrl(url);
+
+        bookmark.setRating(increaseRatingOfDuplicatedBookmark(bookmark));
+
+        bookmarks.add(bookmark);
         return true;
+    }
+
+    /*
+    * Increase the rating of a bookmark if its an duplication
+    * @param bookmark Bookmark which's rating should be increased in order to stay unique
+    * @return the new rating number
+    * */
+    public int increaseRatingOfDuplicatedBookmark(Bookmark bookmark){
+        return (int) bookmarks.stream().filter(itemBookmark -> itemBookmark.getUrl().equals(bookmark.getUrl())).count();
     }
 }
