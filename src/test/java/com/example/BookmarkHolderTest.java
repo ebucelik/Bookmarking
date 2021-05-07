@@ -2,12 +2,16 @@ package com.example;
 
 import com.example.logic.bookmark.BookmarkHolder;
 import com.example.logic.util.UrlUtil;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-public class BookmarkTest {
+public class BookmarkHolderTest {
 
     /**
      * Ensure that a valid URL will be validated correctly
@@ -25,7 +29,7 @@ public class BookmarkTest {
     }
 
     /**
-     * Ensure that invald URL will be invalidated correctly
+     * Ensure that invalid URL will be invalidated correctly
      * @param input URL to validate
      * @param expected Validation Result of the Util Class
      */
@@ -108,5 +112,45 @@ public class BookmarkTest {
 
         // Assert
         assertFalse(result);
+    }
+
+    /*
+    * Ensure that rating of an duplicated bookmark increases
+    */
+    @Test
+    public void ensureRatingIncreasesAtDuplicatedBookmarks(){
+        //Arrange
+        BookmarkHolder holder = new BookmarkHolder();
+        int expected = 3;
+
+        //Act
+        holder.addUrlAsBookmark("https://google.at");
+        holder.addUrlAsBookmark("https://google.com");
+        holder.addUrlAsBookmark("https://google.com");
+        holder.addUrlAsBookmark("https://google.com");
+        int result = holder.increaseRatingOfDuplicatedBookmark(holder.getBookmark());
+
+        //Assert
+        assertEquals(expected, result);
+    }
+
+    /*
+    * Ensure to detect how many urls are secure on the bookmarks list
+    */
+    @Test
+    public void detectHowManySecureUrlsAreStored(){
+        //Arrange
+        BookmarkHolder holder = new BookmarkHolder();
+        int expected = 2;
+
+        //Act
+        holder.addUrlAsBookmark("https://www.google.at");
+        holder.addUrlAsBookmark("http://www.facebook.com");
+        holder.addUrlAsBookmark("https://www.twitter.com");
+        holder.addUrlAsBookmark("http://www.instagram.com");
+        int result = holder.countSecureUrls();
+
+        //Assert
+        assertEquals(expected, result);
     }
 }
