@@ -31,6 +31,7 @@ public class Bookmark {
         this.rating = rating;
     }
 
+
     /*
      * Add multiple keywords to a bookmark
      * @param bookmark The bookmark object where to add the keywords

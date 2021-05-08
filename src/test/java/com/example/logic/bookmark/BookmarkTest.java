@@ -15,6 +15,7 @@ class BookmarkTest {
         bookmark = new Bookmark();
     }
 
+
     /*
      * Ensure that single keywords can be added to one bookmark
      * @param keyword: Check if single keyword can be added

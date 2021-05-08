@@ -134,6 +134,7 @@ public class BookmarkHolderTest {
         assertEquals(expected, result);
     }
 
+
     /*
     * Ensure to detect how many urls are secure on the bookmarks list
     */
@@ -153,4 +154,5 @@ public class BookmarkHolderTest {
         //Assert
         assertEquals(expected, result);
     }
+
 }

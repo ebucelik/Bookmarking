@@ -45,6 +45,7 @@ public class BookmarkHolder {
         return (int) bookmarks.stream().filter(itemBookmark -> itemBookmark.getUrl().equals(bookmark.getUrl())).count();
     }
 
+
     /*
      * Count the secured urls from the bookmarks list
      * @return number of secured urls
@@ -52,4 +53,5 @@ public class BookmarkHolder {
     public int countSecureUrls(){
         return (int) bookmarks.stream().filter(bookmark -> bookmark.getUrl().substring(0, 5).contains("https")).count();
     }
+
 }
