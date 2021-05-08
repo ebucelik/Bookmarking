@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookmarkHolder {
-    private List<String> bookmarks;
-
+    private List<Bookmark> bookmarks;
+    private Bookmark bookmark;
     /**
      * Initialize the list with the Bookmarks - Empty
      */
@@ -25,7 +25,10 @@ public class BookmarkHolder {
             return false;
         }
 
-        bookmarks.add(url);
+        bookmark = new Bookmark();
+        bookmark.setUrl(url);
+
+        bookmarks.add(bookmark);
         return true;
     }
 }
