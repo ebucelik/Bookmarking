@@ -155,4 +155,18 @@ public class BookmarkHolderTest {
         assertEquals(expected, result);
     }
 
+    @Test
+    public void ensureDuplicateUrlsAreFound() {
+        //Arrange
+        BookmarkHolder holder = new BookmarkHolder();
+        String inputUrl = "http://www.orf.at";
+        String existingUrl = "http://www.orf.at";
+
+        //Act
+        boolean duplicate = holder.urlIsDuplicate(inputUrl, existingUrl);
+
+        //Assert
+        assertTrue(duplicate);
+    }
+
 }
