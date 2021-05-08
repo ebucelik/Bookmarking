@@ -8,8 +8,11 @@ public class Bookmark {
 
     private List<String> keyword;
 
+    private int rating;
+
     public Bookmark(){
         keyword = new ArrayList<String>();
+        rating = 0;
     }
 
     public String getUrl() {
@@ -23,6 +26,11 @@ public class Bookmark {
     public List<String> getKeyword() {
         return keyword;
     }
+
+    public void setRating(int rating){
+        this.rating = rating;
+    }
+
 
     /*
      * Add multiple keywords to a bookmark

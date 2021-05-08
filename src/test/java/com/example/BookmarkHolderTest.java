@@ -2,8 +2,11 @@ package com.example;
 
 import com.example.logic.bookmark.BookmarkHolder;
 import com.example.logic.util.UrlUtil;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -109,4 +112,25 @@ public class BookmarkHolderTest {
         // Assert
         assertFalse(result);
     }
+
+    /*
+    * Ensure that rating of an duplicated bookmark increases
+    */
+    @Test
+    public void ensureRatingIncreasesAtDuplicatedBookmarks(){
+        //Arrange
+        BookmarkHolder holder = new BookmarkHolder();
+        int expected = 3;
+
+        //Act
+        holder.addUrlAsBookmark("https://google.at");
+        holder.addUrlAsBookmark("https://google.com");
+        holder.addUrlAsBookmark("https://google.com");
+        holder.addUrlAsBookmark("https://google.com");
+        int result = holder.increaseRatingOfDuplicatedBookmark(holder.getBookmark());
+
+        //Assert
+        assertEquals(expected, result);
+    }
+
 }

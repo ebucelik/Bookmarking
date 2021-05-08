@@ -15,6 +15,8 @@ public class BookmarkHolder {
         bookmarks = new ArrayList<>();
     }
 
+    public Bookmark getBookmark(){ return bookmark; }
+
     /**
      * Only add valid URL to the Bookmark List
      * @param url URL to add
@@ -28,7 +30,18 @@ public class BookmarkHolder {
         bookmark = new Bookmark();
         bookmark.setUrl(url);
 
+        bookmark.setRating(increaseRatingOfDuplicatedBookmark(bookmark));
+
         bookmarks.add(bookmark);
         return true;
+    }
+
+    /*
+    * Increase the rating of a bookmark if its an duplication
+    * @param bookmark Bookmark which's rating should be increased in order to stay unique
+    * @return the new rating number
+    * */
+    public int increaseRatingOfDuplicatedBookmark(Bookmark bookmark){
+        return (int) bookmarks.stream().filter(itemBookmark -> itemBookmark.getUrl().equals(bookmark.getUrl())).count();
     }
 }
