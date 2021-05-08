@@ -169,4 +169,19 @@ public class BookmarkHolderTest {
         assertTrue(duplicate);
     }
 
+    @Test
+    public void ensureUrlIsFromTheSameDomain() {
+        //Arrange
+        BookmarkHolder holder = new BookmarkHolder();
+        String inputUrl = "http://www.orf.at/home";
+        String existingUrl = "http://www.orf.at";
+
+        //Act
+        boolean fromSameDomain = holder.urlFromTheSameDomain(inputUrl, existingUrl);
+
+        //Assert
+        assertTrue(fromSameDomain);
+    }
+
+
 }

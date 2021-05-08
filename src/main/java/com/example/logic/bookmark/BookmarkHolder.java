@@ -61,4 +61,8 @@ public class BookmarkHolder {
     public boolean urlIsDuplicate(String inputUrl, String existingUrl) {
         return inputUrl.equals(existingUrl);
     }
+
+    public boolean urlFromTheSameDomain(String inputUrl, String existingUrl) {
+        return inputUrl.startsWith(existingUrl);
+    }
 }
