@@ -15,6 +15,7 @@ class BookmarkTest {
         bookmark = new Bookmark();
     }
 
+
      /*
      * Ensure that single keywords can be added to one bookmark
      * @param keyword: Check if single keyword can be added
@@ -30,6 +31,7 @@ class BookmarkTest {
         assertEquals(expected, result);
     }
 
+
     /*
     * Ensure that multiple keywords can be added to one bookmark
     * @param keyword: Check if multiple keywords can be added
@@ -41,9 +43,11 @@ class BookmarkTest {
         bookmark.setUrl("http://orf.at/");
         boolean result = bookmark.addKeyword(keyword);
 
+
         //Assert
         assertEquals(expected, result);
     }
+
 
     /*
     * Ensure that empty strings can't be added to a bookmark
@@ -56,9 +60,11 @@ class BookmarkTest {
         bookmark.setUrl("http://orf.at/");
         boolean result = bookmark.addKeyword(keyword);
 
+
         //Assert
         assertEquals(expected, result);
     }
+
 
     /*
     * Ensure that duplicated keywords can't be add to a bookmark
@@ -67,11 +73,13 @@ class BookmarkTest {
     @ParameterizedTest
     @CsvSource({"Science, false"})
     public void ensureDuplicatedKeywordCantBeAddedToBookmark(String keyword, boolean expected){
+
         //Act
         bookmark.setUrl("http://orf.at/");
 
         bookmark.addKeyword("Science");
         boolean result = bookmark.addKeyword(keyword);
+
 
         //Assert
         assertEquals(expected, result);
