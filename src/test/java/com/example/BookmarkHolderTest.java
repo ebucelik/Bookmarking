@@ -5,6 +5,7 @@ import com.example.logic.util.UrlUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -128,6 +129,27 @@ public class BookmarkHolderTest {
         holder.addUrlAsBookmark("https://google.com");
         holder.addUrlAsBookmark("https://google.com");
         int result = holder.increaseRatingOfDuplicatedBookmark(holder.getBookmark());
+
+        //Assert
+        assertEquals(expected, result);
+    }
+
+
+    /*
+    * Ensure to detect how many urls are secure on the bookmarks list
+    */
+    @Test
+    public void detectHowManySecureUrlsAreStored(){
+        //Arrange
+        BookmarkHolder holder = new BookmarkHolder();
+        int expected = 2;
+
+        //Act
+        holder.addUrlAsBookmark("https://www.google.at");
+        holder.addUrlAsBookmark("http://www.facebook.com");
+        holder.addUrlAsBookmark("https://www.twitter.com");
+        holder.addUrlAsBookmark("http://www.instagram.com");
+        int result = holder.countSecureUrls();
 
         //Assert
         assertEquals(expected, result);
