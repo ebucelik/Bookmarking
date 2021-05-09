@@ -53,4 +53,7 @@ public class Bookmark {
         return true;
     }
 
+    public boolean addAssociatedBookmark(Bookmark bookmark) {
+        return this.bookmarksOfSameDomain.add(bookmark);
+    }
 }

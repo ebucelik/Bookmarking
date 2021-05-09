@@ -6,6 +6,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class BookmarkTest {
     private Bookmark bookmark;
@@ -79,12 +80,15 @@ class BookmarkTest {
     }
 
     @Test
-    public void ensureBookmarkFromSameDomainIsAssociatedToBookmark(){
+    public void ensuredBookmarkIsAddedToBookmark(){
         //Arrange
-        Bookmark bookmark1 = new Bookmark();
-        Bookmark bookmark2 = new Bookmark();
-        bookmark1.setUrl("http://www.google");
-    }
+        Bookmark bookmark = new Bookmark();
 
+        //Act
+        boolean addAssociatedBookmark = bookmark.addAssociatedBookmark(bookmark);
+
+        //Assert
+        assertTrue(addAssociatedBookmark);
+    }
 
 }
