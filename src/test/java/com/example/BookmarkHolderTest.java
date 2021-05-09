@@ -127,6 +127,19 @@ public class BookmarkHolderTest {
         assertEquals(expected, result);
     }
 
+    @Test
+    public void ensureRatingOfEmptyBookmarkIsZero(){
+        //Arrange
+        Bookmark bookmark = new Bookmark();
+        int expected = 0;
+
+        //Act
+        int result = holder.increaseRatingOfDuplicatedBookmark(bookmark);
+
+        //Assert
+        assertEquals(expected, result);
+    }
+
 
     /*
     * Ensure to detect how many urls are secure on the bookmarks list

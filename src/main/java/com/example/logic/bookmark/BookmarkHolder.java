@@ -50,8 +50,8 @@ public class BookmarkHolder {
     public int increaseRatingOfDuplicatedBookmark(Bookmark bookmark) {
         int newRating = 0;
         for(Bookmark b : bookmarks) {
+            int oldRating = b.getRating();
             if(b.getUrl().equals(bookmark.getUrl())) {
-                int oldRating = b.getRating();
                 newRating = ++oldRating;
                 b.setRating(newRating);
                 return newRating;
