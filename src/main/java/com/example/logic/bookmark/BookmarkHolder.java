@@ -33,11 +33,13 @@ public class BookmarkHolder {
 
         bookmark = new Bookmark();
         bookmark.setUrl(url);
-
-        bookmark.setRating(increaseRatingOfDuplicatedBookmark(bookmark));
-
-        bookmarks.add(bookmark);
-        return true;
+        if (!urlIsDuplicate(url, bookmarks)) {
+            bookmarks.add(bookmark);
+            return true;
+        } else {
+            increaseRatingOfDuplicatedBookmark(bookmark);
+            return false;
+        }
     }
 
     /*
@@ -46,7 +48,16 @@ public class BookmarkHolder {
      * @return the new rating number
      * */
     public int increaseRatingOfDuplicatedBookmark(Bookmark bookmark) {
-        return (int) bookmarks.stream().filter(itemBookmark -> itemBookmark.getUrl().equals(bookmark.getUrl())).count();
+        int newRating = 0;
+        for(Bookmark b : bookmarks) {
+            if(b.getUrl().equals(bookmark.getUrl())) {
+                int oldRating = b.getRating();
+                newRating = ++oldRating;
+                b.setRating(newRating);
+                return newRating;
+            }
+        }
+        return newRating;
     }
 
 
@@ -58,8 +69,8 @@ public class BookmarkHolder {
         return (int) bookmarks.stream().filter(bookmark -> bookmark.getUrl().substring(0, 5).contains("https")).count();
     }
 
-    public boolean urlIsDuplicate(String inputUrl, String existingUrl) {
-        return inputUrl.equals(existingUrl);
+    public boolean urlIsDuplicate(String inputUrl, List<Bookmark> bookmarks) {
+        return bookmarks.stream().anyMatch(bookmark1 -> bookmark1.getUrl().equals(inputUrl));
     }
 
     public boolean urlFromTheSameDomain(String inputUrl, String existingUrl) {

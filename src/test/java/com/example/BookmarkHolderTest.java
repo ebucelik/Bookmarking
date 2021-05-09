@@ -118,7 +118,6 @@ public class BookmarkHolderTest {
         int expected = 3;
 
         //Act
-        holder.addUrlAsBookmark("https://google.at");
         holder.addUrlAsBookmark("https://google.com");
         holder.addUrlAsBookmark("https://google.com");
         holder.addUrlAsBookmark("https://google.com");
@@ -151,11 +150,15 @@ public class BookmarkHolderTest {
     @Test
     public void ensureDuplicateUrlsAreFound() {
         //Arrange
-        String inputUrl = "http://www.orf.at";
-        String existingUrl = "http://www.orf.at";
+        Bookmark bookmark = new Bookmark();
+        String url = "http://www.orf.at";
+        String duplicateUrl = "http://www.orf.at";
+        List<Bookmark> bookmarks = new ArrayList<Bookmark>();
+        bookmark.setUrl(url);
+        bookmarks.add(bookmark);
 
         //Act
-        boolean duplicate = holder.urlIsDuplicate(inputUrl, existingUrl);
+        boolean duplicate = holder.urlIsDuplicate(duplicateUrl, bookmarks);
 
         //Assert
         assertTrue(duplicate);
@@ -176,6 +179,14 @@ public class BookmarkHolderTest {
 
     @Test
     public void ensureDuplicateUrlIsNotAdded(){
+        //Arrange
+        holder.addUrlAsBookmark("http://www.orf.at");
+
+        //Act
+        boolean duplicatedAdded = holder.addUrlAsBookmark("http://www.orf.at");
+
+        //Assert
+        assertFalse(duplicatedAdded);
 
     }
 

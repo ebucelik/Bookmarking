@@ -10,7 +10,7 @@ public class Bookmark {
 
     private int rating;
 
-    public Bookmark(){
+    public Bookmark() {
         keyword = new ArrayList<String>();
         rating = 0;
     }
@@ -27,24 +27,28 @@ public class Bookmark {
         return keyword;
     }
 
-    public void setRating(int rating){
+    public void setRating(int rating) {
         this.rating = rating;
     }
 
+    public int getRating() {
+        return rating;
+    }
 
     /*
      * Add multiple keywords to a bookmark
      * @param bookmark The bookmark object where to add the keywords
      * @returns true if the keyword is added successfully otherwise false if the object is null
      * */
-    public boolean addKeyword(String keyword){
-        if(url == null || keyword == null) return false;
-        else if(url.trim().equals("") || keyword.trim().equals("")) return false;
+    public boolean addKeyword(String keyword) {
+        if (url == null || keyword == null) return false;
+        else if (url.trim().equals("") || keyword.trim().equals("")) return false;
 
-        if(this.keyword.stream().anyMatch(element -> element.equals(keyword))) return false;
+        if (this.keyword.stream().anyMatch(element -> element.equals(keyword))) return false;
 
         this.keyword.add(keyword);
 
         return true;
     }
+
 }
