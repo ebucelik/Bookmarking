@@ -76,7 +76,6 @@ public class BookmarkHolder {
     }
 
     public boolean urlFromTheSameDomain(String url1, String url2) {
-//        Pattern pattern = Pattern.compile("^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-/]");
         Pattern pattern = Pattern.compile("(https?:\\/\\/)(www\\.)[-a-zA-Z0-9@:%._\\+~#=]{2,256}");
         Matcher matchUrl1 = pattern.matcher(url1);
         Matcher matchUrl2 = pattern.matcher(url2);
@@ -85,9 +84,9 @@ public class BookmarkHolder {
             String b = matchUrl2.group();
 
             return a.equals(b);
+        } else {
+            return false;
         }
-        return false;
     }
-
 
 }

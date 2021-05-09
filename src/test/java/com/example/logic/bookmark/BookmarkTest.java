@@ -85,7 +85,22 @@ class BookmarkTest {
         Bookmark bookmark = new Bookmark();
 
         //Act
-        boolean addAssociatedBookmark = bookmark.addAssociatedBookmark(bookmark);
+//        boolean addAssociatedBookmark = bookmark.addAssociatedBookmark(bookmark);
+
+        //Assert
+//        assertTrue(addAssociatedBookmark);
+    }
+
+    @Test
+    public void ensuredBookmarkFromSameDomainIsAddedToBookmark(){
+        //Arrange
+        Bookmark bookmark1 = new Bookmark();
+        Bookmark bookmark2 = new Bookmark();
+        bookmark1.setUrl("http://www.google.at/page1");
+        bookmark2.setUrl("http://www.google.at");
+
+        //Act
+        boolean addAssociatedBookmark = bookmark.addAssociatedBookmark(bookmark1, bookmark2);
 
         //Assert
         assertTrue(addAssociatedBookmark);
