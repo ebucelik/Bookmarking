@@ -75,8 +75,18 @@ public class BookmarkHolder {
         return bookmarks.stream().anyMatch(bookmark1 -> bookmark1.getUrl().equals(inputUrl));
     }
 
-    public boolean urlFromTheSameDomain(String existingUrl, String url2) {
-        return url2.startsWith(existingUrl);
+    public boolean urlFromTheSameDomain(String url1, String url2) {
+        Pattern pattern = Pattern.compile("^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-/]");
+        Matcher matchUrl1 = pattern.matcher(url1);
+        Matcher matchUrl2 = pattern.matcher(url2);
+        if (matchUrl1.find() && matchUrl2.find()) {
+            String a = matchUrl1.group();
+            String b = matchUrl2.group();
+
+            return a.equals(b);
+        }
+        return false;
     }
+
 
 }

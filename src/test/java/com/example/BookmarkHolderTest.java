@@ -202,5 +202,19 @@ public class BookmarkHolderTest {
         assertTrue(fromSameDomain);
     }
 
+    @Test
+    public void ensureUrlIsFromTheSameDomainIfExistingUrlIsNotRoot(){
+        //Arrange
+        String existingUrl = "http://www.orf.at/page2";
+        String newUrl = "http://www.orf.at/page1";
+
+        //Act
+        boolean fromSameDomain = holder.urlFromTheSameDomain(existingUrl, newUrl);
+
+        //Assert
+        assertTrue(fromSameDomain);
+
+    }
+
 
 }
