@@ -80,18 +80,6 @@ class BookmarkTest {
     }
 
     @Test
-    public void ensuredBookmarkIsAddedToBookmark(){
-        //Arrange
-        Bookmark bookmark = new Bookmark();
-
-        //Act
-//        boolean addAssociatedBookmark = bookmark.addAssociatedBookmark(bookmark);
-
-        //Assert
-//        assertTrue(addAssociatedBookmark);
-    }
-
-    @Test
     public void ensuredBookmarkFromSameDomainIsAddedToBookmark(){
         //Arrange
         Bookmark bookmark1 = new Bookmark();
