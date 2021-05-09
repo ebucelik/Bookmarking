@@ -7,11 +7,13 @@ public class Bookmark {
     private String url;
 
     private List<String> keyword;
+    private List<Bookmark> bookmarksOfSameDomain;
 
     private int rating;
 
     public Bookmark() {
         keyword = new ArrayList<String>();
+        bookmarksOfSameDomain = new ArrayList<Bookmark>();
         rating = 0;
     }
 

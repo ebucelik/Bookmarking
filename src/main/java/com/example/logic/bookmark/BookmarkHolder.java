@@ -4,6 +4,8 @@ import com.example.logic.util.UrlUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class BookmarkHolder {
     private List<Bookmark> bookmarks;
@@ -49,9 +51,9 @@ public class BookmarkHolder {
      * */
     public int increaseRatingOfDuplicatedBookmark(Bookmark bookmark) {
         int newRating = 0;
-        for(Bookmark b : bookmarks) {
+        for (Bookmark b : bookmarks) {
             int oldRating = b.getRating();
-            if(b.getUrl().equals(bookmark.getUrl())) {
+            if (b.getUrl().equals(bookmark.getUrl())) {
                 newRating = ++oldRating;
                 b.setRating(newRating);
                 return newRating;
@@ -73,7 +75,8 @@ public class BookmarkHolder {
         return bookmarks.stream().anyMatch(bookmark1 -> bookmark1.getUrl().equals(inputUrl));
     }
 
-    public boolean urlFromTheSameDomain(String inputUrl, String existingUrl) {
-        return inputUrl.startsWith(existingUrl);
+    public boolean urlFromTheSameDomain(String existingUrl, String url2) {
+        return url2.startsWith(existingUrl);
     }
+
 }

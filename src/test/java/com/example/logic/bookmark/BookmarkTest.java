@@ -1,6 +1,7 @@
 package com.example.logic.bookmark;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -76,5 +77,14 @@ class BookmarkTest {
         //Assert
         assertEquals(expected, result);
     }
+
+    @Test
+    public void ensureBookmarkFromSameDomainIsAssociatedToBookmark(){
+        //Arrange
+        Bookmark bookmark1 = new Bookmark();
+        Bookmark bookmark2 = new Bookmark();
+        bookmark1.setUrl("http://www.google");
+    }
+
 
 }
