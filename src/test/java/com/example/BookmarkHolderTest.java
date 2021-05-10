@@ -213,8 +213,5 @@ public class BookmarkHolderTest {
 
         //Assert
         assertTrue(fromSameDomain);
-
     }
-
-
 }

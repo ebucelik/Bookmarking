@@ -5,8 +5,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class BookmarkTest {
     private Bookmark bookmark;
@@ -80,18 +82,50 @@ class BookmarkTest {
     }
 
     @Test
-    public void ensuredBookmarkFromSameDomainIsAddedToBookmark(){
+    public void ensureBookmarkFromSameDomainIsAddedToExistingBookmark(){
         //Arrange
-        Bookmark bookmark1 = new Bookmark();
-        Bookmark bookmark2 = new Bookmark();
-        bookmark1.setUrl("http://www.google.at/page1");
-        bookmark2.setUrl("http://www.google.at");
+        Bookmark existingBookmark = new Bookmark();
+        Bookmark newBookmark = new Bookmark();
+        existingBookmark.setUrl("http://www.google.at/page1");
+        newBookmark.setUrl("http://www.google.at");
 
         //Act
-        boolean addAssociatedBookmark = bookmark.addAssociatedBookmark(bookmark1, bookmark2);
+        boolean addAssociatedBookmark = bookmark.addAssociatedBookmark(existingBookmark, newBookmark);
 
         //Assert
         assertTrue(addAssociatedBookmark);
+    }
+
+    @Test
+    public void ensureBookmarkFromOtherDomainIsNotAddedToBookmark(){
+        //Arrange
+        Bookmark existingBookmark = new Bookmark();
+        Bookmark newBookmark = new Bookmark();
+        existingBookmark.setUrl("http://www.google.at/page1");
+        newBookmark.setUrl("http://www.google.com/page1");
+
+        //Act
+        boolean addAssociatedBookmark = bookmark.addAssociatedBookmark(existingBookmark, newBookmark);
+
+        //Assert
+        assertFalse(addAssociatedBookmark);
+    }
+
+    @Test
+    public void ensureExistingBookmarkFromSameDomainIsAddedToNewBookmark(){
+        //Arrange
+        Bookmark existingBookmark = new Bookmark();
+        Bookmark newBookmark = new Bookmark();
+        existingBookmark.setUrl("http://www.google.at/page1");
+        newBookmark.setUrl("http://www.google.at");
+
+        //Act
+        bookmark.addAssociatedBookmark(existingBookmark, newBookmark);
+        List<Bookmark> bookmarks = existingBookmark.getBookmarksOfSameDomain(newBookmark);
+        boolean isInside = bookmarks.contains(existingBookmark);
+
+        //Assert
+        assertTrue(isInside);
     }
 
 }

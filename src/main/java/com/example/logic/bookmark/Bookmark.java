@@ -53,13 +53,18 @@ public class Bookmark {
         return true;
     }
 
-    public boolean addAssociatedBookmark(Bookmark bookmark1, Bookmark bookmark2) {
+    public boolean addAssociatedBookmark(Bookmark existingBookmark, Bookmark newBookmark) {
         BookmarkHolder bookmarkHolder = new BookmarkHolder();
-        boolean sameDomain = bookmarkHolder.urlFromTheSameDomain(bookmark1.url, bookmark2.url);
+        boolean sameDomain = bookmarkHolder.urlFromTheSameDomain(existingBookmark.url, newBookmark.url);
         if(sameDomain) {
-            return this.bookmarksOfSameDomain.add(bookmark2);
+            newBookmark.bookmarksOfSameDomain.add(existingBookmark);
+            return existingBookmark.bookmarksOfSameDomain.add(newBookmark);
         } else {
             return false;
         }
+    }
+
+    public List<Bookmark> getBookmarksOfSameDomain(Bookmark bookmark) {
+        return new ArrayList<Bookmark>(bookmark.bookmarksOfSameDomain);
     }
 }
