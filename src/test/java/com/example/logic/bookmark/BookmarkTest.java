@@ -165,4 +165,29 @@ class BookmarkTest {
         assertTrue(isInsideBookmark3);
     }
 
+    @Test
+    public void ensureExistingBookmarksOfSameDomainAreAddedToNewBookmark(){
+        //Arrange
+        List<Bookmark> bookmarks = new ArrayList<Bookmark>();
+        Bookmark existingBookmark1 = new Bookmark();
+        Bookmark existingBookmark2 = new Bookmark();
+        Bookmark existingBookmark3 = new Bookmark();
+        Bookmark newBookmark = new Bookmark();
+        existingBookmark1.setUrl("http://www.google.at/page1");
+        existingBookmark2.setUrl("http://www.google.at/page2");
+        existingBookmark3.setUrl("http://www.google.at/page3");
+        newBookmark.setUrl("http://www.google.at");
+        bookmarks.add(existingBookmark1);
+        bookmarks.add(existingBookmark2);
+        bookmarks.add(existingBookmark3);
+
+        //Act
+        bookmark.addAssociatedBookmark(bookmarks, newBookmark);
+        List<Bookmark> associatedBookmarksOfNewBookmark = bookmark.getBookmarksOfSameDomain(newBookmark);
+        boolean isInsideNewBookmark = associatedBookmarksOfNewBookmark.containsAll(bookmarks);
+
+        //Assert
+        assertTrue(isInsideNewBookmark);
+    }
+
 }

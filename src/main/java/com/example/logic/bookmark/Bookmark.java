@@ -55,14 +55,16 @@ public class Bookmark {
 
     public boolean addAssociatedBookmark(List<Bookmark> bookmarks, Bookmark newBookmark) {
         BookmarkHolder bookmarkHolder = new BookmarkHolder();
+        List<Bookmark> bookmarkList = new ArrayList<Bookmark>();
         for (Bookmark b : bookmarks) {
             boolean sameDomain = bookmarkHolder.urlFromTheSameDomain(b.url, newBookmark.url);
-            if(sameDomain) {
+            if (sameDomain) {
+                bookmarkList.add(b);
                 newBookmark.bookmarksOfSameDomain.add(b);
-                return b.bookmarksOfSameDomain.add(newBookmark);
-            }
+                b.bookmarksOfSameDomain.add(newBookmark);
+            } else return false;
         }
-        return false;
+        return newBookmark.bookmarksOfSameDomain.containsAll(bookmarkList);
     }
 
     public List<Bookmark> getBookmarksOfSameDomain(Bookmark bookmark) {
