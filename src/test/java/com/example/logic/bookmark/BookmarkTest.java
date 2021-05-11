@@ -5,6 +5,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class BookmarkTest {
@@ -77,4 +80,114 @@ class BookmarkTest {
         //Assert
         assertEquals(expected, result);
     }
+
+    @Test
+    public void ensureBookmarkFromSameDomainIsAddedToExistingBookmark(){
+        //Arrange
+        List<Bookmark> bookmarks = new ArrayList<Bookmark>();
+        Bookmark existingBookmark = new Bookmark();
+        Bookmark newBookmark = new Bookmark();
+        existingBookmark.setUrl("http://www.google.at/page1");
+        newBookmark.setUrl("http://www.google.at");
+        bookmarks.add(existingBookmark);
+
+        //Act
+        boolean addAssociatedBookmark = bookmark.addAssociatedBookmark(bookmarks, newBookmark);
+
+        //Assert
+        assertTrue(addAssociatedBookmark);
+    }
+
+    @Test
+    public void ensureBookmarkFromOtherDomainIsNotAddedToBookmark(){
+        //Arrange
+        List<Bookmark> bookmarks = new ArrayList<Bookmark>();
+        Bookmark existingBookmark = new Bookmark();
+        Bookmark newBookmark = new Bookmark();
+        existingBookmark.setUrl("http://www.google.at/page1");
+        newBookmark.setUrl("http://www.google.com/page1");
+        bookmarks.add(existingBookmark);
+
+        //Act
+        boolean addAssociatedBookmark = bookmark.addAssociatedBookmark(bookmarks, newBookmark);
+
+        //Assert
+        assertFalse(addAssociatedBookmark);
+    }
+
+    @Test
+    public void ensureExistingBookmarkFromSameDomainIsAddedToNewBookmark(){
+        //Arrange
+        List<Bookmark> bookmarks = new ArrayList<Bookmark>();
+        Bookmark existingBookmark = new Bookmark();
+        Bookmark newBookmark = new Bookmark();
+        existingBookmark.setUrl("http://www.google.at/page1");
+        newBookmark.setUrl("http://www.google.at");
+        bookmarks.add(existingBookmark);
+
+        //Act
+        bookmark.addAssociatedBookmark(bookmarks, newBookmark);
+        List<Bookmark> a = existingBookmark.getBookmarksOfSameDomain(newBookmark);
+        boolean isInside = a.contains(existingBookmark);
+
+        //Assert
+        assertTrue(isInside);
+    }
+
+    @Test
+    public void ensureNewBookmarkIsAssociatedToAllExistingBookmarksOfSameDomain(){
+        //Arrange
+        List<Bookmark> bookmarks = new ArrayList<Bookmark>();
+        Bookmark existingBookmark1 = new Bookmark();
+        Bookmark existingBookmark2 = new Bookmark();
+        Bookmark existingBookmark3 = new Bookmark();
+        Bookmark newBookmark = new Bookmark();
+        existingBookmark1.setUrl("http://www.google.at/page1");
+        existingBookmark2.setUrl("http://www.google.at/page2");
+        existingBookmark3.setUrl("http://www.google.at/page3");
+        newBookmark.setUrl("http://www.google.at");
+        bookmarks.add(existingBookmark1);
+        bookmarks.add(existingBookmark2);
+        bookmarks.add(existingBookmark3);
+
+        //Act
+        bookmark.addAssociatedBookmark(bookmarks, newBookmark);
+        List<Bookmark> associatedBookmarksOfBookmark1 = bookmark.getBookmarksOfSameDomain(existingBookmark1);
+        List<Bookmark> associatedBookmarksOfBookmark2 = bookmark.getBookmarksOfSameDomain(existingBookmark1);
+        List<Bookmark> associatedBookmarksOfBookmark3 = bookmark.getBookmarksOfSameDomain(existingBookmark1);
+        boolean isInsideBookmark1 = associatedBookmarksOfBookmark1.contains(newBookmark);
+        boolean isInsideBookmark2 = associatedBookmarksOfBookmark2.contains(newBookmark);
+        boolean isInsideBookmark3 = associatedBookmarksOfBookmark3.contains(newBookmark);
+
+        //Assert
+        assertTrue(isInsideBookmark1);
+        assertTrue(isInsideBookmark2);
+        assertTrue(isInsideBookmark3);
+    }
+
+    @Test
+    public void ensureExistingBookmarksOfSameDomainAreAddedToNewBookmark(){
+        //Arrange
+        List<Bookmark> bookmarks = new ArrayList<Bookmark>();
+        Bookmark existingBookmark1 = new Bookmark();
+        Bookmark existingBookmark2 = new Bookmark();
+        Bookmark existingBookmark3 = new Bookmark();
+        Bookmark newBookmark = new Bookmark();
+        existingBookmark1.setUrl("http://www.google.at/page1");
+        existingBookmark2.setUrl("http://www.google.at/page2");
+        existingBookmark3.setUrl("http://www.google.at/page3");
+        newBookmark.setUrl("http://www.google.at");
+        bookmarks.add(existingBookmark1);
+        bookmarks.add(existingBookmark2);
+        bookmarks.add(existingBookmark3);
+
+        //Act
+        bookmark.addAssociatedBookmark(bookmarks, newBookmark);
+        List<Bookmark> associatedBookmarksOfNewBookmark = bookmark.getBookmarksOfSameDomain(newBookmark);
+        boolean isInsideNewBookmark = associatedBookmarksOfNewBookmark.containsAll(bookmarks);
+
+        //Assert
+        assertTrue(isInsideNewBookmark);
+    }
+
 }

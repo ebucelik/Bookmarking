@@ -1,7 +1,9 @@
 package com.example;
 
+import com.example.logic.bookmark.Bookmark;
 import com.example.logic.bookmark.BookmarkHolder;
 import com.example.logic.util.UrlUtil;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -12,10 +14,17 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BookmarkHolderTest {
+    private BookmarkHolder holder;
+
+    @BeforeEach
+    void setUp() {
+        holder = new BookmarkHolder();
+    }
 
     /**
      * Ensure that a valid URL will be validated correctly
-     * @param input URL to validate
+     *
+     * @param input    URL to validate
      * @param expected Validation Result of the Util Class
      */
     @ParameterizedTest
@@ -30,13 +39,13 @@ public class BookmarkHolderTest {
 
     /**
      * Ensure that invalid URL will be invalidated correctly
-     * @param input URL to validate
+     *
+     * @param input    URL to validate
      * @param expected Validation Result of the Util Class
      */
     @ParameterizedTest
     @CsvSource({"http:/orf.at/,false"})
     public void ensureInvalidUrlWillBeInvalidated(String input, boolean expected) {
-        // Arrange
         // Act
         boolean result = UrlUtil.validateUrl(input);
 
@@ -46,14 +55,12 @@ public class BookmarkHolderTest {
 
     /**
      * Ensure that valid URL will be added to the bookmark
+     *
      * @param inputUrl Valid URL to add to the bookmark
      */
     @ParameterizedTest
     @CsvSource({"http://orf.at/", "http://www.orf.at/", "https://www.google.at/"})
     public void ensureValidUrlWillBeAddedToBookmark(String inputUrl) {
-        // Arrange
-        BookmarkHolder holder = new BookmarkHolder();
-
         // Act
         boolean result = holder.addUrlAsBookmark(inputUrl);
 
@@ -63,14 +70,12 @@ public class BookmarkHolderTest {
 
     /**
      * Ensure that invalid URL will not be added to the bookmark
+     *
      * @param inputUrl Invalid URL trying to be added to the bookmark
      */
     @ParameterizedTest
     @CsvSource({"http:/orf.at/", "htps://www.google.at", "https://www.google."})
     public void ensureInvalidUrlWillNotBeAddedToBookmark(String inputUrl) {
-        // Arrange
-        BookmarkHolder holder = new BookmarkHolder();
-
         // Act
         boolean result = holder.addUrlAsBookmark(inputUrl);
 
@@ -80,14 +85,12 @@ public class BookmarkHolderTest {
 
     /**
      * Ensure that valid URL will be added to the bookmark which already has URLs in the List
+     *
      * @param inputUrl Valid URL to add to the bookmark
      */
     @ParameterizedTest
     @CsvSource({"http://orf.at/", "https://www.google.at", "https://google.com"})
     public void ensureValidUrlWillBeAddedToAlreadyUsedBookmark(String inputUrl) {
-        // Arrange
-        BookmarkHolder holder = new BookmarkHolder();
-
         // Act
         holder.addUrlAsBookmark("https://orf.at/");
         boolean result = holder.addUrlAsBookmark(inputUrl);
@@ -98,14 +101,12 @@ public class BookmarkHolderTest {
 
     /**
      * Ensure that invalid URL will not be added to the bookmark which already has URLs in the List
+     *
      * @param inputUrl Invalid URL to add to the bookmark
      */
     @ParameterizedTest
     @CsvSource({"http:/orf.at/", "htps://www.google.at", "https://www.google."})
     public void ensureInvalidUrlWillNotBeAddedToAlreadyUsedBookmark(String inputUrl) {
-        // Arrange
-        BookmarkHolder holder = new BookmarkHolder();
-
         // Act
         holder.addUrlAsBookmark("https://orf.at/");
         boolean result = holder.addUrlAsBookmark(inputUrl);
@@ -115,16 +116,14 @@ public class BookmarkHolderTest {
     }
 
     /*
-    * Ensure that rating of an duplicated bookmark increases
-    */
+     * Ensure that rating of an duplicated bookmark increases
+     */
     @Test
-    public void ensureRatingIncreasesAtDuplicatedBookmarks(){
+    public void ensureRatingIncreasesAtDuplicatedBookmarks() {
         //Arrange
-        BookmarkHolder holder = new BookmarkHolder();
         int expected = 3;
 
         //Act
-        holder.addUrlAsBookmark("https://google.at");
         holder.addUrlAsBookmark("https://google.com");
         holder.addUrlAsBookmark("https://google.com");
         holder.addUrlAsBookmark("https://google.com");
@@ -134,14 +133,26 @@ public class BookmarkHolderTest {
         assertEquals(expected, result);
     }
 
+    @Test
+    public void ensureRatingOfEmptyBookmarkIsZero() {
+        //Arrange
+        Bookmark bookmark = new Bookmark();
+        int expected = 0;
+
+        //Act
+        int result = holder.increaseRatingOfDuplicatedBookmark(bookmark);
+
+        //Assert
+        assertEquals(expected, result);
+    }
+
 
     /*
-    * Ensure to detect how many urls are secure on the bookmarks list
-    */
+     * Ensure to detect how many urls are secure on the bookmarks list
+     */
     @Test
-    public void detectHowManySecureUrlsAreStored(){
+    public void detectHowManySecureUrlsAreStored() {
         //Arrange
-        BookmarkHolder holder = new BookmarkHolder();
         int expected = 2;
 
         //Act
@@ -155,4 +166,77 @@ public class BookmarkHolderTest {
         assertEquals(expected, result);
     }
 
+    @Test
+    public void ensureDuplicateUrlsAreFound() {
+        //Arrange
+        Bookmark bookmark = new Bookmark();
+        String url = "http://www.orf.at";
+        String duplicateUrl = "http://www.orf.at";
+        List<Bookmark> bookmarks = new ArrayList<Bookmark>();
+        bookmark.setUrl(url);
+        bookmarks.add(bookmark);
+
+        //Act
+        boolean duplicate = holder.urlIsDuplicate(duplicateUrl, bookmarks);
+
+        //Assert
+        assertTrue(duplicate);
+    }
+
+    @Test
+    public void ensureDuplicateUrlIsNotAdded() {
+        //Arrange
+        holder.addUrlAsBookmark("http://www.orf.at");
+
+        //Act
+        boolean duplicatedAdded = holder.addUrlAsBookmark("http://www.orf.at");
+
+        //Assert
+        assertFalse(duplicatedAdded);
+    }
+
+    @Test
+    public void ensureUrlIsFromTheSameDomainIfExistingUrlIsRoot() {
+        //Arrange
+        String existingUrl = "http://www.orf.at";
+        String newUrl = "http://www.orf.at/page1";
+
+        //Act
+        boolean fromSameDomain = holder.urlFromTheSameDomain(existingUrl, newUrl);
+
+        //Assert
+        assertTrue(fromSameDomain);
+    }
+
+    @Test
+    public void ensureUrlIsFromTheSameDomainIfExistingUrlIsNotRoot() {
+        //Arrange
+        String existingUrl = "http://www.orf.at/page2";
+        String newUrl = "http://www.orf.at/page1";
+
+        //Act
+        boolean fromSameDomain = holder.urlFromTheSameDomain(existingUrl, newUrl);
+
+        //Assert
+        assertTrue(fromSameDomain);
+    }
+
+    @Test
+    public void ensureWhenAddingANewBookmarkItIsAssociated() {
+        //Arrange
+        Bookmark bookmark = new Bookmark();
+        String url = "http://www.orf.at";
+        holder.addUrlAsBookmark(url);
+        String newUrl = "http://www.orf.at/page2";
+        holder.addUrlAsBookmark(newUrl);
+
+        //Act
+        Bookmark b = holder.getBookmark();
+        List<Bookmark> bookmarks = bookmark.getBookmarksOfSameDomain(b);
+        boolean containsBookmark = bookmarks.stream().anyMatch(bookm -> bookm.getUrl().equals(newUrl));
+
+        //Assert
+        assertTrue(containsBookmark);
+
+    }
 }
