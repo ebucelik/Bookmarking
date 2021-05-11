@@ -37,6 +37,7 @@ public class BookmarkHolder {
         bookmark.setUrl(url);
         if (!urlIsDuplicate(url, bookmarks)) {
             bookmarks.add(bookmark);
+            bookmark.addAssociatedBookmark(bookmarks, bookmark);
             return true;
         } else {
             increaseRatingOfDuplicatedBookmark(bookmark);
