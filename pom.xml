@@ -145,37 +145,40 @@
                 <groupId>org.pitest</groupId>
                 <artifactId>pitest-maven</artifactId>
                 <version>${pitest.version}</version>
+                <!-- Add support to pitest for JUnit 5 -->
                 <dependencies>
-                    <dependency> <!-- Only required because PITest does not work with JUnit5 without it -->
+                    <dependency>
                         <groupId>org.pitest</groupId>
                         <artifactId>pitest-junit5-plugin</artifactId>
                         <version>${pitest.junit5.version}</version>
                     </dependency>
                 </dependencies>
                 <configuration>
-                    <!--<timestampedReports>false</timestampedReports>-->
-                    <!--<inScopeClasses>
-                        <param>lapr.project.model.*</param>
-                        <param>lapr.project.utils.*</param>
-                    </inScopeClasses>-->
+                    <!-- Classes to be mutated -->
                     <targetClasses>
-                        <!-- Example: <param>lapr.project.model.*</param> -->
-                        <param>pt.ipp.isep.dei.examples.tdd.basic.domain.*</param>
+                        <param>
+                            com.example.logic.*
+                        </param>
                     </targetClasses>
-
+                    <!-- Tests to run -->
                     <targetTests>
-                        <!-- Example: <param>lapr.project.utils.*</param> -->
-                        <param>pt.ipp.isep.dei.examples.tdd.basic.domain.*</param>
+                        <param>
+                            com.example.*
+                        </param>
                     </targetTests>
-
                     <outputFormats>
                         <outputFormat>XML</outputFormat>
                         <outputFormat>HTML</outputFormat>
                     </outputFormats>
-                    <!--<verbose>true</verbose>-->
+                    <mutators>
+                        <mutator>DEFAULTS</mutator>
+                    </mutators>
+                    <!-- make output more verbose
+                    <verbose>true</verbose>
+                    -->
                 </configuration>
-
             </plugin>
+
 
         </plugins>
     </build>
