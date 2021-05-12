@@ -27,10 +27,6 @@ public class Bookmark {
         this.url = url;
     }
 
-    public List<String> getKeyword() {
-        return keyword;
-    }
-
     public void setRating(int rating) {
         this.rating = rating;
     }
@@ -45,17 +41,22 @@ public class Bookmark {
      * @returns true if the keyword is added successfully otherwise false if the object is null
      * */
     public boolean addKeyword(String keyword) {
-        if (url == null || keyword == null) return false;
-        else if (url.trim().equals("") || keyword.trim().equals("")) return false;
+        if (url == null || keyword == null || url.trim().equals("") || keyword.trim().equals("")) return false;
 
-        if (this.keyword.stream().anyMatch(element -> element.equals(keyword))) return false;
+//        if (this.keyword.stream().anyMatch(element -> element.equals(keyword))) return false;
+        boolean isOkay = true;
+        for(String keywords : this.keyword) {
+            if(keywords.equals(keyword))
+                isOkay = false;
+        }
 
-        this.keyword.add(keyword);
+        if(isOkay)
+            this.keyword.add(keyword);
 
-        return true;
+        return isOkay;
     }
 
-    public boolean addAssociatedBookmark(List<Bookmark> bookmarks, Bookmark newBookmark) {
+    public List<Bookmark> addAssociatedBookmark(List<Bookmark> bookmarks, Bookmark newBookmark) {
         BookmarkHolder bookmarkHolder = new BookmarkHolder();
         List<Bookmark> bookmarkList = new ArrayList<Bookmark>();
         for (Bookmark b : bookmarks) {
@@ -64,9 +65,9 @@ public class Bookmark {
                 bookmarkList.add(b);
                 newBookmark.bookmarksOfSameDomain.add(b);
                 b.bookmarksOfSameDomain.add(newBookmark);
-            } else return false;
+            }
         }
-        return newBookmark.bookmarksOfSameDomain.containsAll(bookmarkList);
+        return bookmarkList;
     }
 
     public List<Bookmark> getBookmarksOfSameDomain(Bookmark bookmark) {

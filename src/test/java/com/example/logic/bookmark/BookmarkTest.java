@@ -87,15 +87,16 @@ class BookmarkTest {
         List<Bookmark> bookmarks = new ArrayList<Bookmark>();
         Bookmark existingBookmark = new Bookmark();
         Bookmark newBookmark = new Bookmark();
-        existingBookmark.setUrl("http://www.google.at/page1");
+        String existingUrl = "http://www.google.at/page1";
+        existingBookmark.setUrl(existingUrl);
         newBookmark.setUrl("http://www.google.at");
         bookmarks.add(existingBookmark);
 
         //Act
-        boolean addAssociatedBookmark = bookmark.addAssociatedBookmark(bookmarks, newBookmark);
+        List<Bookmark> addAssociatedBookmark = bookmark.addAssociatedBookmark(bookmarks, newBookmark);
 
         //Assert
-        assertTrue(addAssociatedBookmark);
+        assertEquals(existingUrl, addAssociatedBookmark.get(0).getUrl());
     }
 
     @Test
@@ -109,10 +110,10 @@ class BookmarkTest {
         bookmarks.add(existingBookmark);
 
         //Act
-        boolean addAssociatedBookmark = bookmark.addAssociatedBookmark(bookmarks, newBookmark);
+        List<Bookmark> addAssociatedBookmark = bookmark.addAssociatedBookmark(bookmarks, newBookmark);
 
         //Assert
-        assertFalse(addAssociatedBookmark);
+        assertTrue(addAssociatedBookmark.isEmpty());
     }
 
     @Test
