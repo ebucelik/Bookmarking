@@ -52,12 +52,11 @@ public class BookmarkHolder {
      * */
     public int increaseRatingOfDuplicatedBookmark(Bookmark bookmark) {
         int newRating = 0;
-        for (Bookmark b : bookmarks) {
-            int oldRating = b.getRating();
-            if (b.getUrl().equals(bookmark.getUrl())) {
+        for (Bookmark bookmarkItem : bookmarks) {
+            int oldRating = bookmarkItem.getRating();
+            if (bookmarkItem.getUrl().equals(bookmark.getUrl())) {
                 newRating = ++oldRating;
-                b.setRating(newRating);
-                return newRating;
+                bookmarkItem.setRating(newRating);
             }
         }
         return newRating;
@@ -80,14 +79,16 @@ public class BookmarkHolder {
         Pattern pattern = Pattern.compile("(https?:\\/\\/)(www\\.)[-a-zA-Z0-9@:%._\\+~#=]{2,256}");
         Matcher matchUrl1 = pattern.matcher(url1);
         Matcher matchUrl2 = pattern.matcher(url2);
+
+        boolean match = false;
+
         if (matchUrl1.find() && matchUrl2.find()) {
             String a = matchUrl1.group();
             String b = matchUrl2.group();
 
-            return a.equals(b);
-        } else {
-            return false;
+            match = a.equals(b);
         }
+        return match;
     }
 
 }

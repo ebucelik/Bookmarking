@@ -23,4 +23,9 @@ public class UrlUtilTest {
         boolean matches = UrlUtil.validateUrl(url);
         assertFalse(matches);
     }
+
+    @Test
+    public void ensureCreatingUrlUtilWillNotCrash() {
+        UrlUtil urlUtil = new UrlUtil();
+    }
 }

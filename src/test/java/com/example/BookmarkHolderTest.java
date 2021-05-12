@@ -148,6 +148,21 @@ public class BookmarkHolderTest {
         assertEquals(expected, result);
     }
 
+    @Test
+    public void ensureRatingStaysZeroWithAlreadyAddedBookmarks() {
+        // Arrange
+        BookmarkHolder bookmarkHolder = new BookmarkHolder();
+        bookmarkHolder.addUrlAsBookmark("https://google.at");
+        Bookmark bookmark = new Bookmark();
+        bookmark.setUrl("https://orf.at");
+
+        // Act
+        int result = bookmarkHolder.increaseRatingOfDuplicatedBookmark(bookmark);
+
+        // Assert
+        assertEquals(0, result);
+    }
+
 
     /*
      * Ensure to detect how many urls are secure on the bookmarks list
@@ -221,6 +236,20 @@ public class BookmarkHolderTest {
 
         //Assert
         assertTrue(fromSameDomain);
+    }
+
+    @Test
+    public void ensureUrlIsNotFromTheSameDomain() {
+        // Arrange
+        String existingUrl = "https://google.at";
+        String newUrl = "http://www.orf.at/page1";
+        BookmarkHolder bookmarkHolder = new BookmarkHolder();
+
+        // Act
+        boolean notFromSameDomain = bookmarkHolder.urlFromTheSameDomain(existingUrl, newUrl);
+
+        // Assert
+        assertFalse(notFromSameDomain);
     }
 
     @Test
