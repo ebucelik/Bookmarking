@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class BookmarkHolderTest {
     private BookmarkHolder holder;
 
+    // Can collidate with other Tests
     @BeforeEach
     void setUp() {
         holder = new BookmarkHolder();
@@ -62,7 +63,8 @@ public class BookmarkHolderTest {
     @CsvSource({"http://orf.at/", "http://www.orf.at/", "https://www.google.at/"})
     public void ensureValidUrlWillBeAddedToBookmark(String inputUrl) {
         // Act
-        boolean result = holder.addUrlAsBookmark(inputUrl);
+        BookmarkHolder holdernew = new BookmarkHolder();
+        boolean result = holdernew.addUrlAsBookmark(inputUrl);
 
         // Assert
         assertTrue(result);

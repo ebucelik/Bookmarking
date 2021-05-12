@@ -12,6 +12,8 @@ public class Bookmark {
     private int rating;
 
     public Bookmark() {
+        // Validate URL here and if invalid - throw exception
+
         keyword = new ArrayList<String>();
         bookmarksOfSameDomain = new ArrayList<Bookmark>();
         rating = 0;
