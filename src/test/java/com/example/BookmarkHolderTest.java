@@ -9,6 +9,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -270,26 +272,22 @@ public class BookmarkHolderTest {
         assertTrue(containsBookmark);
     }
 
-    //User Story Six: As a user I want to be able to filter bookmarks by one keyword
+    //User Story Six: Filter bookmarks by one keyword
     /*
      * Ensure that user can get a list of bookmarks by filtering through one keyword
-     * @param keyword: Filter by this keywords
      * */
     @Test
     public void ensureToFilterBookmarksByOneKeyword(){
         //Arrange
-        String filteredKeyword = "Science";
+        List<String> filteredKeywords = Collections.singletonList("Science");
 
         List<Bookmark> expectedBookmarks = new ArrayList<>();
 
         BookmarkHolder bookmarkHolderExpected = new BookmarkHolder();
         bookmarkHolderExpected.addUrlAsBookmark("https://www.fh-campuswien.ac.at");
-        bookmarkHolderExpected.getBookmark().addKeyword("Science");
-        bookmarkHolderExpected.getBookmark().addKeyword("Informatics");
         expectedBookmarks.add(bookmarkHolderExpected.getBookmark());
 
         bookmarkHolderExpected.addUrlAsBookmark("https://www.tu-wien.at");
-        bookmarkHolderExpected.getBookmark().addKeyword("Science");
         expectedBookmarks.add(bookmarkHolderExpected.getBookmark());
 
         BookmarkHolder bookmarkHolder = new BookmarkHolder();
@@ -308,7 +306,7 @@ public class BookmarkHolderTest {
         bookmarkHolder.getBookmark().addKeyword("Science");
 
         //Act
-        List<Bookmark> resultBookmarks = bookmarkHolder.getBookmarksByKeyword(filteredKeyword);
+        List<Bookmark> resultBookmarks = bookmarkHolder.getBookmarksByKeyword(filteredKeywords);
 
         List<String> expectedUrl = new ArrayList<>();
         for (Bookmark bookmarkItem : expectedBookmarks){
@@ -327,7 +325,7 @@ public class BookmarkHolderTest {
     @Test
     public void ensureToNotFindBookmarksByOneKeyword(){
         //Arrange
-        String filteredKeyword = "Science";
+        List<String> filteredKeywords = Collections.singletonList("Science");
 
         BookmarkHolder bookmarkHolder = new BookmarkHolder();
         bookmarkHolder.addUrlAsBookmark("https://www.google.at");
@@ -344,7 +342,93 @@ public class BookmarkHolderTest {
         bookmarkHolder.getBookmark().addKeyword("Sport");
 
         //Act
-        List<Bookmark> resultBookmarks = bookmarkHolder.getBookmarksByKeyword(filteredKeyword);
+        List<Bookmark> resultBookmarks = bookmarkHolder.getBookmarksByKeyword(filteredKeywords);
+
+        List<String> resultUrl = new ArrayList<>();
+        for (Bookmark bookmarkItem : resultBookmarks){
+            resultUrl.add(bookmarkItem.getUrl());
+        }
+
+        //Assert
+        assertEquals(new ArrayList<>(), resultUrl);
+    }
+
+    //User Story Seven: Filter bookmarks by one or more keywords
+    /*
+     * Ensure that user can get a list of bookmarks by filtering through one or more keywords
+     * */
+    @Test
+    public void ensureToFilterBookmarksByMultipleKeywords(){
+        //Arrange
+        List<String> filteredKeywords = Arrays.asList("Science", "Informatics", "Fun", "Facebook");
+
+        List<Bookmark> expectedBookmarks = new ArrayList<>();
+
+        BookmarkHolder bookmarkHolderExpected = new BookmarkHolder();
+        bookmarkHolderExpected.addUrlAsBookmark("https://www.facebook.com");
+        expectedBookmarks.add(bookmarkHolderExpected.getBookmark());
+
+        bookmarkHolderExpected.addUrlAsBookmark("https://www.fh-campuswien.ac.at");
+        expectedBookmarks.add(bookmarkHolderExpected.getBookmark());
+
+        bookmarkHolderExpected.addUrlAsBookmark("https://www.tu-wien.at");
+        expectedBookmarks.add(bookmarkHolderExpected.getBookmark());
+
+        BookmarkHolder bookmarkHolder = new BookmarkHolder();
+        bookmarkHolder.addUrlAsBookmark("https://www.google.at");
+        bookmarkHolder.getBookmark().addKeyword("Search");
+        bookmarkHolder.getBookmark().addKeyword("Home");
+
+        bookmarkHolder.addUrlAsBookmark("https://www.facebook.com");
+        bookmarkHolder.getBookmark().addKeyword("Social Media");
+        bookmarkHolder.getBookmark().addKeyword("Facebook");
+
+        bookmarkHolder.addUrlAsBookmark("https://www.fh-campuswien.ac.at");
+        bookmarkHolder.getBookmark().addKeyword("Science");
+        bookmarkHolder.getBookmark().addKeyword("Informatics");
+
+        bookmarkHolder.addUrlAsBookmark("https://www.tu-wien.at");
+        bookmarkHolder.getBookmark().addKeyword("Science");
+
+        //Act
+        List<Bookmark> resultBookmarks = bookmarkHolder.getBookmarksByKeyword(filteredKeywords);
+
+        List<String> expectedUrl = new ArrayList<>();
+        for (Bookmark bookmarkItem : expectedBookmarks){
+            expectedUrl.add(bookmarkItem.getUrl());
+        }
+
+        List<String> resultUrl = new ArrayList<>();
+        for (Bookmark bookmarkItem : resultBookmarks){
+            resultUrl.add(bookmarkItem.getUrl());
+        }
+
+        //Assert
+        assertEquals(expectedUrl, resultUrl);
+    }
+
+    @Test
+    public void ensureToNotFindBookmarksByMultipleKeywords(){
+        //Arrange
+        List<String> filteredKeywords = Arrays.asList("Science", "Mathematics", "Fun", "Facebook");
+
+        BookmarkHolder bookmarkHolder = new BookmarkHolder();
+        bookmarkHolder.addUrlAsBookmark("https://www.google.at");
+        bookmarkHolder.getBookmark().addKeyword("Search");
+        bookmarkHolder.getBookmark().addKeyword("Home");
+
+        bookmarkHolder.addUrlAsBookmark("https://www.facebook.com");
+        bookmarkHolder.getBookmark().addKeyword("Social Media");
+
+        bookmarkHolder.addUrlAsBookmark("https://www.fh-campuswien.ac.at");
+        bookmarkHolder.getBookmark().addKeyword("Informatics");
+        bookmarkHolder.getBookmark().addKeyword("Physics");
+
+        bookmarkHolder.addUrlAsBookmark("https://www.tu-wien.at");
+        bookmarkHolder.getBookmark().addKeyword("Sport");
+
+        //Act
+        List<Bookmark> resultBookmarks = bookmarkHolder.getBookmarksByKeyword(filteredKeywords);
 
         List<String> resultUrl = new ArrayList<>();
         for (Bookmark bookmarkItem : resultBookmarks){
