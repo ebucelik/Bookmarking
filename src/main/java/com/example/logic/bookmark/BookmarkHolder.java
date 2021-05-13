@@ -91,4 +91,18 @@ public class BookmarkHolder {
         return match;
     }
 
+    public List<Bookmark> getBookmarksByKeyword(String keyword){
+        List<Bookmark> matchedBookmarks = new ArrayList<>();
+
+        for (Bookmark bookmarkItem : bookmarks){
+            for (String keywordItem : bookmarkItem.getKeyword()){
+                if(keywordItem.equals(keyword)){
+                    matchedBookmarks.add(bookmarkItem);
+                    break;
+                }
+            }
+        }
+
+        return matchedBookmarks;
+    }
 }
