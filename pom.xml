@@ -145,16 +145,14 @@
                 <groupId>org.pitest</groupId>
                 <artifactId>pitest-maven</artifactId>
                 <version>${pitest.version}</version>
-                <!-- Add support to pitest for JUnit 5 -->
                 <dependencies>
-                    <dependency>
+                    <dependency> <!-- Only required because PITest does not work with JUnit5 without it -->
                         <groupId>org.pitest</groupId>
                         <artifactId>pitest-junit5-plugin</artifactId>
                         <version>${pitest.junit5.version}</version>
                     </dependency>
                 </dependencies>
                 <configuration>
-                    <!-- Classes to be mutated -->
                     <targetClasses>
                         <param>
                             com.example.logic.*
@@ -173,12 +171,10 @@
                     <mutators>
                         <mutator>DEFAULTS</mutator>
                     </mutators>
-                    <!-- make output more verbose
-                    <verbose>true</verbose>
-                    -->
+                    <!--<verbose>true</verbose>-->
                 </configuration>
-            </plugin>
 
+            </plugin>
 
         </plugins>
     </build>

@@ -23,6 +23,8 @@ public class Bookmark {
         return url;
     }
 
+    public List<String> getKeyword(){ return keyword; }
+
     public void setUrl(String url) {
         this.url = url;
     }
@@ -61,7 +63,7 @@ public class Bookmark {
         List<Bookmark> bookmarkList = new ArrayList<Bookmark>();
         for (Bookmark b : bookmarks) {
             boolean sameDomain = bookmarkHolder.urlFromTheSameDomain(b.url, newBookmark.url);
-            if (sameDomain) {
+            if (sameDomain && !b.getUrl().equals(newBookmark.getUrl())) {
                 bookmarkList.add(b);
                 newBookmark.bookmarksOfSameDomain.add(b);
                 b.bookmarksOfSameDomain.add(newBookmark);
