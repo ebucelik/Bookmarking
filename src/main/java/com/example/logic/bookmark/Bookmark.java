@@ -1,14 +1,15 @@
 package com.example.logic.bookmark;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.*;
 
 public class Bookmark {
     private String url;
 
     private List<String> keyword;
     private List<Bookmark> bookmarksOfSameDomain;
+    private Timestamp timestamp;
 
     private int rating;
 
@@ -17,6 +18,7 @@ public class Bookmark {
 
         keyword = new ArrayList<String>();
         bookmarksOfSameDomain = new ArrayList<Bookmark>();
+        timestamp = null;
         rating = 0;
     }
 
@@ -80,11 +82,24 @@ public class Bookmark {
     }
 
     public List<String> removeKeyword(String keyword) {
-        if(this.keyword.contains(keyword)) {
+        if (this.keyword.contains(keyword)) {
             this.keyword.remove(keyword);
-        }else {
+        } else {
             throw new NoSuchElementException();
         }
         return this.keyword;
+    }
+
+    public Timestamp createTimestamp() {
+        LocalDateTime now = LocalDateTime.now();
+        return Timestamp.valueOf(now);
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public Timestamp getTimestamp() {
+        return timestamp;
     }
 }
