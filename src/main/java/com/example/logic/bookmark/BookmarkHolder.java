@@ -4,6 +4,7 @@ import com.example.logic.util.UrlUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -112,7 +113,11 @@ public class BookmarkHolder {
     }
 
     public List<Bookmark> removeBookmark(Bookmark bookmark) {
-        bookmarks.remove(bookmark);
+        if (bookmarks.contains(bookmark)) {
+            bookmarks.remove(bookmark);
+        } else {
+            throw new NoSuchElementException();
+        }
         return bookmarks;
     }
 }

@@ -466,4 +466,19 @@ public class BookmarkHolderTest {
         assertTrue(isRemoved);
         assertTrue(listNotEmpty);
     }
+
+    @Test
+    public void ensureRemovingBookmarkThatDoesNotExistThrowsException() {
+        // Arrange
+        BookmarkHolder holder = new BookmarkHolder();
+        holder.addUrlAsBookmark("https://www.google.at");
+        Bookmark bookmark = new Bookmark();
+        bookmark.setUrl("https://www.tu-wien.at");
+
+        //Act && Assert
+        assertThrows(NoSuchElementException.class, () -> {
+            holder.removeBookmark(bookmark);
+        });
+    }
+
 }
