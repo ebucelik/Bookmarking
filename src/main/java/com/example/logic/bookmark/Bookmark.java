@@ -2,6 +2,7 @@ package com.example.logic.bookmark;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class Bookmark {
     private String url;
@@ -23,7 +24,9 @@ public class Bookmark {
         return url;
     }
 
-    public List<String> getKeyword(){ return keyword; }
+    public List<String> getKeyword() {
+        return keyword;
+    }
 
     public void setUrl(String url) {
         this.url = url;
@@ -47,12 +50,12 @@ public class Bookmark {
 
 //        if (this.keyword.stream().anyMatch(element -> element.equals(keyword))) return false;
         boolean isOkay = true;
-        for(String keywords : this.keyword) {
-            if(keywords.equals(keyword))
+        for (String keywords : this.keyword) {
+            if (keywords.equals(keyword))
                 isOkay = false;
         }
 
-        if(isOkay)
+        if (isOkay)
             this.keyword.add(keyword);
 
         return isOkay;
@@ -74,5 +77,14 @@ public class Bookmark {
 
     public List<Bookmark> getBookmarksOfSameDomain(Bookmark bookmark) {
         return new ArrayList<Bookmark>(bookmark.bookmarksOfSameDomain);
+    }
+
+    public List<String> removeKeyword(String keyword) {
+        if(this.keyword.contains(keyword)) {
+            this.keyword.remove(keyword);
+        }else {
+            throw new NoSuchElementException();
+        }
+        return this.keyword;
     }
 }

@@ -91,25 +91,23 @@ public class BookmarkHolder {
         return match;
     }
 
-    public List<Bookmark> getBookmarksByKeyword(List<String> keywords){
+    public List<Bookmark> getBookmarksByKeyword(List<String> keywords) {
         List<Bookmark> matchedBookmarks = new ArrayList<>();
         boolean matched;
 
-        for (Bookmark bookmarkItem : bookmarks){
+        for (Bookmark bookmarkItem : bookmarks) {
             matched = false;
-            for (String keywordItem : bookmarkItem.getKeyword()){
-                for (String keyword : keywords){
-                    if(keywordItem.equals(keyword)){
+            for (String keywordItem : bookmarkItem.getKeyword()) {
+                for (String keyword : keywords) {
+                    if (keywordItem.equals(keyword)) {
                         matchedBookmarks.add(bookmarkItem);
                         matched = true;
                         break;
                     }
                 }
-
-                if(matched) break;
+                if (matched) break;
             }
         }
-
         return matchedBookmarks;
     }
 }

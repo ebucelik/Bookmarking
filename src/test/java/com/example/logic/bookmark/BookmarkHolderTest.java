@@ -1,9 +1,6 @@
-package com.example;
+package com.example.logic.bookmark;
 
-import com.example.logic.bookmark.Bookmark;
-import com.example.logic.bookmark.BookmarkHolder;
 import com.example.logic.util.UrlUtil;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -16,6 +13,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BookmarkHolderTest {
+/*
     private BookmarkHolder holder;
 
     // Can collidate with other Tests
@@ -23,6 +21,7 @@ public class BookmarkHolderTest {
     void setUp() {
         holder = new BookmarkHolder();
     }
+*/
 
     /**
      * Ensure that a valid URL will be validated correctly
@@ -80,6 +79,8 @@ public class BookmarkHolderTest {
     @ParameterizedTest
     @CsvSource({"http:/orf.at/", "htps://www.google.at", "https://www.google."})
     public void ensureInvalidUrlWillNotBeAddedToBookmark(String inputUrl) {
+        //Arrange
+        BookmarkHolder holder = new BookmarkHolder();
         // Act
         boolean result = holder.addUrlAsBookmark(inputUrl);
 
@@ -95,6 +96,8 @@ public class BookmarkHolderTest {
     @ParameterizedTest
     @CsvSource({"http://orf.at/", "https://www.google.at", "https://google.com"})
     public void ensureValidUrlWillBeAddedToAlreadyUsedBookmark(String inputUrl) {
+        //Arrange
+        BookmarkHolder holder = new BookmarkHolder();
         // Act
         holder.addUrlAsBookmark("https://orf.at/");
         boolean result = holder.addUrlAsBookmark(inputUrl);
@@ -111,6 +114,8 @@ public class BookmarkHolderTest {
     @ParameterizedTest
     @CsvSource({"http:/orf.at/", "htps://www.google.at", "https://www.google."})
     public void ensureInvalidUrlWillNotBeAddedToAlreadyUsedBookmark(String inputUrl) {
+        //Arrange
+        BookmarkHolder holder = new BookmarkHolder();
         // Act
         holder.addUrlAsBookmark("https://orf.at/");
         boolean result = holder.addUrlAsBookmark(inputUrl);
@@ -125,6 +130,7 @@ public class BookmarkHolderTest {
     @Test
     public void ensureRatingIncreasesAtDuplicatedBookmarks() {
         //Arrange
+        BookmarkHolder holder = new BookmarkHolder();
         int expected = 3;
 
         //Act
@@ -140,6 +146,7 @@ public class BookmarkHolderTest {
     @Test
     public void ensureRatingOfEmptyBookmarkIsZero() {
         //Arrange
+        BookmarkHolder holder = new BookmarkHolder();
         Bookmark bookmark = new Bookmark();
         int expected = 0;
 
@@ -172,6 +179,7 @@ public class BookmarkHolderTest {
     @Test
     public void detectHowManySecureUrlsAreStored() {
         //Arrange
+        BookmarkHolder holder = new BookmarkHolder();
         int expected = 2;
 
         //Act
@@ -188,6 +196,7 @@ public class BookmarkHolderTest {
     @Test
     public void ensureDuplicateUrlsAreFound() {
         //Arrange
+        BookmarkHolder holder = new BookmarkHolder();
         Bookmark bookmark = new Bookmark();
         String url = "http://www.orf.at";
         String duplicateUrl = "http://www.orf.at";
@@ -205,6 +214,7 @@ public class BookmarkHolderTest {
     @Test
     public void ensureDuplicateUrlIsNotAdded() {
         //Arrange
+        BookmarkHolder holder = new BookmarkHolder();
         holder.addUrlAsBookmark("http://www.orf.at");
 
         //Act
@@ -217,6 +227,7 @@ public class BookmarkHolderTest {
     @Test
     public void ensureUrlIsFromTheSameDomainIfExistingUrlIsRoot() {
         //Arrange
+        BookmarkHolder holder = new BookmarkHolder();
         String existingUrl = "http://www.orf.at";
         String newUrl = "http://www.orf.at/page1";
 
@@ -230,6 +241,7 @@ public class BookmarkHolderTest {
     @Test
     public void ensureUrlIsFromTheSameDomainIfExistingUrlIsNotRoot() {
         //Arrange
+        BookmarkHolder holder = new BookmarkHolder();
         String existingUrl = "http://www.orf.at/page2";
         String newUrl = "http://www.orf.at/page1";
 
@@ -257,6 +269,7 @@ public class BookmarkHolderTest {
     @Test
     public void ensureWhenAddingANewBookmarkItIsAssociated() {
         //Arrange
+        BookmarkHolder holder = new BookmarkHolder();
         Bookmark bookmark = new Bookmark();
         String url = "http://www.orf.at";
         holder.addUrlAsBookmark(url);
@@ -277,7 +290,7 @@ public class BookmarkHolderTest {
      * Ensure that user can get a list of bookmarks by filtering through one keyword
      * */
     @Test
-    public void ensureToFilterBookmarksByOneKeyword(){
+    public void ensureToFilterBookmarksByOneKeyword() {
         //Arrange
         List<String> filteredKeywords = Collections.singletonList("Science");
 
@@ -309,12 +322,12 @@ public class BookmarkHolderTest {
         List<Bookmark> resultBookmarks = bookmarkHolder.getBookmarksByKeyword(filteredKeywords);
 
         List<String> expectedUrl = new ArrayList<>();
-        for (Bookmark bookmarkItem : expectedBookmarks){
+        for (Bookmark bookmarkItem : expectedBookmarks) {
             expectedUrl.add(bookmarkItem.getUrl());
         }
 
         List<String> resultUrl = new ArrayList<>();
-        for (Bookmark bookmarkItem : resultBookmarks){
+        for (Bookmark bookmarkItem : resultBookmarks) {
             resultUrl.add(bookmarkItem.getUrl());
         }
 
@@ -323,7 +336,7 @@ public class BookmarkHolderTest {
     }
 
     @Test
-    public void ensureToNotFindBookmarksByOneKeyword(){
+    public void ensureToNotFindBookmarksByOneKeyword() {
         //Arrange
         List<String> filteredKeywords = Collections.singletonList("Science");
 
@@ -345,7 +358,7 @@ public class BookmarkHolderTest {
         List<Bookmark> resultBookmarks = bookmarkHolder.getBookmarksByKeyword(filteredKeywords);
 
         List<String> resultUrl = new ArrayList<>();
-        for (Bookmark bookmarkItem : resultBookmarks){
+        for (Bookmark bookmarkItem : resultBookmarks) {
             resultUrl.add(bookmarkItem.getUrl());
         }
 
@@ -358,7 +371,7 @@ public class BookmarkHolderTest {
      * Ensure that user can get a list of bookmarks by filtering through one or more keywords
      * */
     @Test
-    public void ensureToFilterBookmarksByMultipleKeywords(){
+    public void ensureToFilterBookmarksByMultipleKeywords() {
         //Arrange
         List<String> filteredKeywords = Arrays.asList("Science", "Informatics", "Fun", "Facebook");
 
@@ -394,12 +407,12 @@ public class BookmarkHolderTest {
         List<Bookmark> resultBookmarks = bookmarkHolder.getBookmarksByKeyword(filteredKeywords);
 
         List<String> expectedUrl = new ArrayList<>();
-        for (Bookmark bookmarkItem : expectedBookmarks){
+        for (Bookmark bookmarkItem : expectedBookmarks) {
             expectedUrl.add(bookmarkItem.getUrl());
         }
 
         List<String> resultUrl = new ArrayList<>();
-        for (Bookmark bookmarkItem : resultBookmarks){
+        for (Bookmark bookmarkItem : resultBookmarks) {
             resultUrl.add(bookmarkItem.getUrl());
         }
 
@@ -408,7 +421,7 @@ public class BookmarkHolderTest {
     }
 
     @Test
-    public void ensureToNotFindBookmarksByMultipleKeywords(){
+    public void ensureToNotFindBookmarksByMultipleKeywords() {
         //Arrange
         List<String> filteredKeywords = Arrays.asList("Science", "Mathematics", "Fun", "Facebook");
 
@@ -431,7 +444,7 @@ public class BookmarkHolderTest {
         List<Bookmark> resultBookmarks = bookmarkHolder.getBookmarksByKeyword(filteredKeywords);
 
         List<String> resultUrl = new ArrayList<>();
-        for (Bookmark bookmarkItem : resultBookmarks){
+        for (Bookmark bookmarkItem : resultBookmarks) {
             resultUrl.add(bookmarkItem.getUrl());
         }
 

@@ -1,6 +1,5 @@
-package com.example.util;
+package com.example.logic.util;
 
-import com.example.logic.util.UrlUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
