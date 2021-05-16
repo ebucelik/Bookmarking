@@ -23,7 +23,9 @@ public class Bookmark {
         return url;
     }
 
-    public List<String> getKeyword(){ return keyword; }
+    public List<String> getKeyword() {
+        return keyword;
+    }
 
     public void setUrl(String url) {
         this.url = url;
@@ -47,12 +49,12 @@ public class Bookmark {
 
 //        if (this.keyword.stream().anyMatch(element -> element.equals(keyword))) return false;
         boolean isOkay = true;
-        for(String keywords : this.keyword) {
-            if(keywords.equals(keyword))
+        for (String keywords : this.keyword) {
+            if (keywords.equals(keyword))
                 isOkay = false;
         }
 
-        if(isOkay)
+        if (isOkay)
             this.keyword.add(keyword);
 
         return isOkay;

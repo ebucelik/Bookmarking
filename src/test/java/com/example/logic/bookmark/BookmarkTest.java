@@ -8,16 +8,10 @@ import org.junit.jupiter.params.provider.CsvSource;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class BookmarkTest {
-    private Bookmark bookmark;
-
-    @BeforeEach
-    void setUp() {
-        bookmark = new Bookmark();
-    }
-
 
     /*
      * Ensure that single keywords can be added to one bookmark
@@ -25,7 +19,9 @@ class BookmarkTest {
      * */
     @ParameterizedTest
     @CsvSource({"Fun, true"})
-    public void ensureSingleKeywordWillBeAddedToBookmark(String keyword, boolean expected){
+    public void ensureSingleKeywordWillBeAddedToBookmark(String keyword, boolean expected) {
+        //Arrange
+        Bookmark bookmark = new Bookmark();
         //Act
         bookmark.setUrl("http://orf.at/");
         boolean result = bookmark.addKeyword(keyword);
@@ -40,7 +36,9 @@ class BookmarkTest {
      * */
     @ParameterizedTest
     @CsvSource({"Fun, true", "Science, true", "Digital, true"})
-    public void ensureMultipleKeywordsWillBeAddedToBookmark(String keyword, boolean expected){
+    public void ensureMultipleKeywordsWillBeAddedToBookmark(String keyword, boolean expected) {
+        //Arrange
+        Bookmark bookmark = new Bookmark();
         //Act
         bookmark.setUrl("http://orf.at/");
         boolean result = bookmark.addKeyword(keyword);
@@ -55,7 +53,9 @@ class BookmarkTest {
      * */
     @ParameterizedTest
     @CsvSource({"Fun, true", ", false", "'', false"})
-    public void ensureEmptyKeywordCantBeAddedToBookmark(String keyword, boolean expected){
+    public void ensureEmptyKeywordCantBeAddedToBookmark(String keyword, boolean expected) {
+        //Arrange
+        Bookmark bookmark = new Bookmark();
         //Act
         bookmark.setUrl("http://orf.at/");
         boolean result = bookmark.addKeyword(keyword);
@@ -70,7 +70,9 @@ class BookmarkTest {
      * */
     @ParameterizedTest
     @CsvSource({"Science, false"})
-    public void ensureDuplicatedKeywordCantBeAddedToBookmark(String keyword, boolean expected){
+    public void ensureDuplicatedKeywordCantBeAddedToBookmark(String keyword, boolean expected) {
+        //Arrange
+        Bookmark bookmark = new Bookmark();
         //Act
         bookmark.setUrl("http://orf.at/");
 
@@ -82,7 +84,7 @@ class BookmarkTest {
     }
 
     @Test
-    public void ensureBookmarkFromSameDomainIsAddedToExistingBookmark(){
+    public void ensureBookmarkFromSameDomainIsAddedToExistingBookmark() {
         //Arrange
         List<Bookmark> bookmarks = new ArrayList<Bookmark>();
         Bookmark existingBookmark = new Bookmark();
@@ -93,14 +95,14 @@ class BookmarkTest {
         bookmarks.add(existingBookmark);
 
         //Act
-        List<Bookmark> addAssociatedBookmark = bookmark.addAssociatedBookmark(bookmarks, newBookmark);
+        List<Bookmark> addAssociatedBookmark = newBookmark.addAssociatedBookmark(bookmarks, newBookmark);
 
         //Assert
         assertEquals(existingUrl, addAssociatedBookmark.get(0).getUrl());
     }
 
     @Test
-    public void ensureBookmarkFromOtherDomainIsNotAddedToBookmark(){
+    public void ensureBookmarkFromOtherDomainIsNotAddedToBookmark() {
         //Arrange
         List<Bookmark> bookmarks = new ArrayList<Bookmark>();
         Bookmark existingBookmark = new Bookmark();
@@ -110,14 +112,14 @@ class BookmarkTest {
         bookmarks.add(existingBookmark);
 
         //Act
-        List<Bookmark> addAssociatedBookmark = bookmark.addAssociatedBookmark(bookmarks, newBookmark);
+        List<Bookmark> addAssociatedBookmark = newBookmark.addAssociatedBookmark(bookmarks, newBookmark);
 
         //Assert
         assertTrue(addAssociatedBookmark.isEmpty());
     }
 
     @Test
-    public void ensureExistingBookmarkFromSameDomainIsAddedToNewBookmark(){
+    public void ensureExistingBookmarkFromSameDomainIsAddedToNewBookmark() {
         //Arrange
         List<Bookmark> bookmarks = new ArrayList<Bookmark>();
         Bookmark existingBookmark = new Bookmark();
@@ -127,7 +129,7 @@ class BookmarkTest {
         bookmarks.add(existingBookmark);
 
         //Act
-        bookmark.addAssociatedBookmark(bookmarks, newBookmark);
+        newBookmark.addAssociatedBookmark(bookmarks, newBookmark);
         List<Bookmark> a = existingBookmark.getBookmarksOfSameDomain(newBookmark);
         boolean isInside = a.contains(existingBookmark);
 
@@ -136,7 +138,7 @@ class BookmarkTest {
     }
 
     @Test
-    public void ensureNewBookmarkIsAssociatedToAllExistingBookmarksOfSameDomain(){
+    public void ensureNewBookmarkIsAssociatedToAllExistingBookmarksOfSameDomain() {
         //Arrange
         List<Bookmark> bookmarks = new ArrayList<Bookmark>();
         Bookmark existingBookmark1 = new Bookmark();
@@ -152,10 +154,10 @@ class BookmarkTest {
         bookmarks.add(existingBookmark3);
 
         //Act
-        bookmark.addAssociatedBookmark(bookmarks, newBookmark);
-        List<Bookmark> associatedBookmarksOfBookmark1 = bookmark.getBookmarksOfSameDomain(existingBookmark1);
-        List<Bookmark> associatedBookmarksOfBookmark2 = bookmark.getBookmarksOfSameDomain(existingBookmark1);
-        List<Bookmark> associatedBookmarksOfBookmark3 = bookmark.getBookmarksOfSameDomain(existingBookmark1);
+        newBookmark.addAssociatedBookmark(bookmarks, newBookmark);
+        List<Bookmark> associatedBookmarksOfBookmark1 = existingBookmark1.getBookmarksOfSameDomain(existingBookmark1);
+        List<Bookmark> associatedBookmarksOfBookmark2 = existingBookmark2.getBookmarksOfSameDomain(existingBookmark1);
+        List<Bookmark> associatedBookmarksOfBookmark3 = existingBookmark3.getBookmarksOfSameDomain(existingBookmark1);
         boolean isInsideBookmark1 = associatedBookmarksOfBookmark1.contains(newBookmark);
         boolean isInsideBookmark2 = associatedBookmarksOfBookmark2.contains(newBookmark);
         boolean isInsideBookmark3 = associatedBookmarksOfBookmark3.contains(newBookmark);
@@ -167,7 +169,7 @@ class BookmarkTest {
     }
 
     @Test
-    public void ensureExistingBookmarksOfSameDomainAreAddedToNewBookmark(){
+    public void ensureExistingBookmarksOfSameDomainAreAddedToNewBookmark() {
         //Arrange
         List<Bookmark> bookmarks = new ArrayList<Bookmark>();
         Bookmark existingBookmark1 = new Bookmark();
@@ -183,28 +185,17 @@ class BookmarkTest {
         bookmarks.add(existingBookmark3);
 
         //Act
-        bookmark.addAssociatedBookmark(bookmarks, newBookmark);
-        List<Bookmark> associatedBookmarksOfNewBookmark = bookmark.getBookmarksOfSameDomain(newBookmark);
+        newBookmark.addAssociatedBookmark(bookmarks, newBookmark);
+        List<Bookmark> associatedBookmarksOfNewBookmark = newBookmark.getBookmarksOfSameDomain(newBookmark);
         boolean isInsideNewBookmark = associatedBookmarksOfNewBookmark.containsAll(bookmarks);
 
         //Assert
         assertTrue(isInsideNewBookmark);
     }
 
+    @Test
+    public void ensureKeywordIsRemoved() {
+        //Arrange
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }
 }
