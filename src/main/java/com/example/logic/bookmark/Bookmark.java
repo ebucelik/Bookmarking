@@ -9,16 +9,16 @@ public class Bookmark {
 
     private List<String> keyword;
     private List<Bookmark> bookmarksOfSameDomain;
+    private Timestamp timestamp;
 
     private int rating;
-    private Timestamp timestamp;
 
     public Bookmark() {
         // Validate URL here and if invalid - throw exception
 
         keyword = new ArrayList<String>();
         bookmarksOfSameDomain = new ArrayList<Bookmark>();
-        timestamp = createTimestamp();
+        timestamp = null;
         rating = 0;
     }
 
@@ -82,9 +82,9 @@ public class Bookmark {
     }
 
     public List<String> removeKeyword(String keyword) {
-        if(this.keyword.contains(keyword)) {
+        if (this.keyword.contains(keyword)) {
             this.keyword.remove(keyword);
-        }else {
+        } else {
             throw new NoSuchElementException();
         }
         return this.keyword;
