@@ -7,9 +7,9 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class BookmarkTest {
 
@@ -194,7 +194,7 @@ class BookmarkTest {
     }
 
     @Test
-    public void ensureKeywordIsRemoved() {
+    public void ensureExistingKeywordIsRemoved() {
         //Arrange
         Bookmark bookmark = new Bookmark();
         bookmark.setUrl("http://orf.at/");
@@ -206,8 +206,25 @@ class BookmarkTest {
         //Act
         List<String> keywords = bookmark.removeKeyword(keyword);
         boolean wasDeleted = !keywords.contains(keyword);
+        boolean oldKeywordStillExists = keywords.contains(secondKeyword);
 
         //Assert
         assertTrue(wasDeleted);
+        assertTrue(oldKeywordStillExists);
+    }
+
+    @Test
+    public void ensureRemovingNonExistingKeywordThroesException() {
+        //Arrange
+        Bookmark bookmark = new Bookmark();
+        bookmark.setUrl("http://orf.at/");
+        String keyword = "news";
+        String secondKeyword = "fun";
+        bookmark.addKeyword(keyword);
+
+        //Act & Assert
+        assertThrows(NoSuchElementException.class, () -> {
+            bookmark.removeKeyword(secondKeyword);
+        });
     }
 }

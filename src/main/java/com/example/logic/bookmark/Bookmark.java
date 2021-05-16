@@ -2,6 +2,7 @@ package com.example.logic.bookmark;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class Bookmark {
     private String url;
@@ -79,7 +80,11 @@ public class Bookmark {
     }
 
     public List<String> removeKeyword(String keyword) {
-        this.keyword.remove(keyword);
+        if(this.keyword.contains(keyword)) {
+            this.keyword.remove(keyword);
+        }else {
+            throw new NoSuchElementException();
+        }
         return this.keyword;
     }
 }
