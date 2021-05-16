@@ -214,6 +214,22 @@ class BookmarkTest {
     }
 
     @Test
+    public void ensureRemovingKeywordFromListWithOnlyOneKeyWordReturnsEmptyList() {
+        //Arrange
+        Bookmark bookmark = new Bookmark();
+        bookmark.setUrl("http://orf.at/");
+        String keyword = "news";
+        bookmark.addKeyword(keyword);
+
+        //Act
+        List<String> keywords = bookmark.removeKeyword(keyword);
+        boolean wasDeleted = keywords.isEmpty();
+
+        //Assert
+        assertTrue(wasDeleted);
+    }
+
+    @Test
     public void ensureRemovingNonExistingKeywordThroesException() {
         //Arrange
         Bookmark bookmark = new Bookmark();
