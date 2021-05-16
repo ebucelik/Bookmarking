@@ -110,4 +110,9 @@ public class BookmarkHolder {
         }
         return matchedBookmarks;
     }
+
+    public List<Bookmark> removeBookmark(Bookmark bookmark) {
+        bookmarks.remove(bookmark);
+        return bookmarks;
+    }
 }

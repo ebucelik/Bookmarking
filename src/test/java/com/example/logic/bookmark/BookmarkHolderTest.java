@@ -5,10 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -450,5 +447,23 @@ public class BookmarkHolderTest {
 
         //Assert
         assertEquals(new ArrayList<>(), resultUrl);
+    }
+
+    @Test
+    public void ensureRemovingBookmarkIsRemovedFromList() {
+        // Arrange
+        BookmarkHolder holder = new BookmarkHolder();
+        holder.addUrlAsBookmark("https://www.google.at");
+        holder.addUrlAsBookmark("https://www.tu-wien.at");
+
+        //Act
+        Bookmark bookmark = holder.getBookmark();
+        List<Bookmark> bookmarks = holder.removeBookmark(bookmark);
+        boolean isRemoved = !bookmarks.contains(bookmark);
+        boolean listNotEmpty = !bookmarks.isEmpty();
+
+        //Assert
+        assertTrue(isRemoved);
+        assertTrue(listNotEmpty);
     }
 }
