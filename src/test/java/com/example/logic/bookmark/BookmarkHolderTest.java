@@ -481,4 +481,18 @@ public class BookmarkHolderTest {
         });
     }
 
+    @Test
+    public void ensureRemovingBookmarkReturnsEmptyList() {
+        // Arrange
+        BookmarkHolder holder = new BookmarkHolder();
+        holder.addUrlAsBookmark("https://www.google.at");
+
+        //Act
+        Bookmark bookmark = holder.getBookmark();
+        List<Bookmark> bookmarks = holder.removeBookmark(bookmark);
+        boolean listEmpty = bookmarks.isEmpty();
+
+        //Assert
+        assertTrue(listEmpty);
+    }
 }
