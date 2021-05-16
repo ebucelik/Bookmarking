@@ -196,6 +196,18 @@ class BookmarkTest {
     @Test
     public void ensureKeywordIsRemoved() {
         //Arrange
+        Bookmark bookmark = new Bookmark();
+        bookmark.setUrl("http://orf.at/");
+        String keyword = "news";
+        String secondKeyword = "fun";
+        bookmark.addKeyword(keyword);
+        bookmark.addKeyword(secondKeyword);
 
+        //Act
+        List<String> keywords = bookmark.removeKeyword(keyword);
+        boolean wasDeleted = !keywords.contains(keyword);
+
+        //Assert
+        assertTrue(wasDeleted);
     }
 }
