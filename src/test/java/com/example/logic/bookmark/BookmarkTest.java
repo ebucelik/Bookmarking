@@ -214,7 +214,7 @@ class BookmarkTest {
     }
 
     @Test
-    public void ensureRemovingKeywordFromListWithOnlyOneKeyWordReturnsEmptyList() {
+    public void ensureRemovingKeywordFromListWithOnlyOneKeywordReturnsEmptyList() {
         //Arrange
         Bookmark bookmark = new Bookmark();
         bookmark.setUrl("http://orf.at/");
@@ -230,7 +230,7 @@ class BookmarkTest {
     }
 
     @Test
-    public void ensureRemovingNonExistingKeywordThroesException() {
+    public void ensureRemovingNonExistingKeywordThrowsException() {
         //Arrange
         Bookmark bookmark = new Bookmark();
         bookmark.setUrl("http://orf.at/");
