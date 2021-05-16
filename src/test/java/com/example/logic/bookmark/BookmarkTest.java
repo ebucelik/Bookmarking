@@ -1,10 +1,11 @@
 package com.example.logic.bookmark;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -243,4 +244,36 @@ class BookmarkTest {
             bookmark.removeKeyword(secondKeyword);
         });
     }
+
+    @Test
+    public void ensureTimestampIsCreated() {
+        //Arrange
+        Bookmark bookmark = new Bookmark();
+        bookmark.setUrl("http://orf.at/");
+        LocalDateTime now = LocalDateTime.now();
+        Timestamp timestamp = Timestamp.valueOf(now);
+
+        //Act
+        Timestamp t = bookmark.getTimestamp();
+        bookmark.setTimestamp(timestamp);
+
+        //Assert
+        assertEquals(timestamp, t);
+    }
+
+    @Test
+    public void ensureNullTimestampThrowsException() {
+        //Arrange
+        Bookmark bookmark = new Bookmark();
+        LocalDateTime now = LocalDateTime.now();
+        Timestamp timestamp = Timestamp.valueOf(now);
+
+        //Act
+        bookmark.setTimestamp(timestamp);
+        Timestamp t = bookmark.getTimestamp();
+
+        //Assert
+        assertEquals(timestamp, t);
+    }
+
 }
