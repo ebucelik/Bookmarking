@@ -31,9 +31,13 @@
         <junit.platform.surefire.provider>1.3.2</junit.platform.surefire.provider>
 
         <!-- SonarCloud Configuration -->
-        <sonar.projectKey>SahilSinghStudierender_FH-SEM4-TDD-Workshop-Bookmarking</sonar.projectKey>
-        <sonar.organization>sahilsinghstudierender</sonar.organization>
-        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.projectKey>sonarqube_bookmark</sonar.projectKey>
+        <sonar.organization>ebucelik</sonar.organization>
+        <sonar.sources>.</sonar.sources>
+        <sonar.exlusions>/src/test/**</sonar.exlusions>
+        <sonar.inclusions>/src/main/**</sonar.inclusions>
+        <sonar.host.url>http://localhost:9000</sonar.host.url>
+        <sonar.login>67a8f5c279219be718f0a51e40c93d38b67c753b</sonar.login>
     </properties>
 
     <dependencies>
