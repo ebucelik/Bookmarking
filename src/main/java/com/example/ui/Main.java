@@ -10,5 +10,7 @@ public class Main {
 
         bookmarkHolder.addUrlAsBookmark("http://www.orf.at");
         bookmarkHolder.addUrlAsBookmark("http://www.orf.at");
+
+
     }
 }
