@@ -249,10 +249,12 @@ class BookmarkTest {
         //Arrange
         Bookmark bookmark = new Bookmark();
         bookmark.setUrl("http://orf.at/");
+
         //Act
         Timestamp timestamp = bookmark.createTimestamp();
         bookmark.setTimestamp(timestamp);
         Timestamp compareTimestamp = bookmark.getTimestamp();
+
         //Assert
         assertEquals(timestamp, compareTimestamp);
         assertNotEquals(timestamp, null);
