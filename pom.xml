@@ -36,7 +36,7 @@
         <sonar.sources>.</sonar.sources>
         <sonar.exlusions>/src/test/**</sonar.exlusions>
         <sonar.inclusions>/src/main/**</sonar.inclusions>
-        <sonar.host.url>http://192.168.1.7:9000</sonar.host.url>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.login>67a8f5c279219be718f0a51e40c93d38b67c753b</sonar.login>
     </properties>
 
