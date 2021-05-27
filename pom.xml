@@ -34,6 +34,7 @@
         <sonar.projectKey>ebucelik_Bookmarking</sonar.projectKey>
         <sonar.organization>ebucelik</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+
     </properties>
 
     <dependencies>
