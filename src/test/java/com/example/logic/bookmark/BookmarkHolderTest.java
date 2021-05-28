@@ -10,16 +10,6 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BookmarkHolderTest {
-/*
-    private BookmarkHolder holder;
-
-    // Can collidate with other Tests
-    @BeforeEach
-    void setUp() {
-        holder = new BookmarkHolder();
-    }
-*/
-
     /**
      * Ensure that a valid URL will be validated correctly
      *
