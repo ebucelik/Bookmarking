@@ -133,15 +133,11 @@ public class BookmarkHolder {
     }
 
     public List<Bookmark> sortBookmarksByDateDesc(List<Bookmark> bookmarks){
-        List<Bookmark> sortingBookmark = new ArrayList<>();
-
-        if(bookmarks.size() <= 0)
+        if (bookmarks == null || bookmarks.isEmpty())
             return Collections.emptyList();
 
-        sortingBookmark.add(bookmarks.get(2));
-        sortingBookmark.add(bookmarks.get(1));
-        sortingBookmark.add(bookmarks.get(0));
+        bookmarks.sort(Comparator.comparing(Bookmark::getTimestamp).reversed());
 
-        return sortingBookmark;
+        return bookmarks;
     }
 }
