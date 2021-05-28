@@ -2,14 +2,12 @@ package com.example.logic.bookmark;
 
 import com.example.logic.util.UrlUtil;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class BookmarkHolder {
-    private List<Bookmark> bookmarks;
+    private final List<Bookmark> bookmarks;
     private Bookmark bookmark;
 
     /**
@@ -21,6 +19,10 @@ public class BookmarkHolder {
 
     public Bookmark getBookmark() {
         return bookmark;
+    }
+
+    public List<Bookmark> getBookmarks() {
+        return bookmarks;
     }
 
     /**
@@ -118,6 +120,15 @@ public class BookmarkHolder {
         } else {
             throw new NoSuchElementException();
         }
+        return bookmarks;
+    }
+
+    public List<Bookmark> sortBookmarksByRatingDesc(List<Bookmark> bookmarks){
+        if (bookmarks == null || bookmarks.size() <= 0)
+            return new ArrayList<>();
+
+        bookmarks.sort(Comparator.comparingInt(Bookmark::getRating).reversed());
+
         return bookmarks;
     }
 }

@@ -7,8 +7,8 @@ import java.util.*;
 public class Bookmark {
     private String url;
 
-    private List<String> keyword;
-    private List<Bookmark> bookmarksOfSameDomain;
+    private final List<String> keyword;
+    private final List<Bookmark> bookmarksOfSameDomain;
     private Timestamp timestamp;
 
     private int rating;
@@ -18,9 +18,19 @@ public class Bookmark {
 
         keyword = new ArrayList<String>();
         bookmarksOfSameDomain = new ArrayList<Bookmark>();
-        timestamp = null;
+        timestamp = this.createTimestamp();
         rating = 0;
     }
+
+    /*
+    public Bookmark(String url, List<String> keyword, List<Bookmark> bookmarksOfSameDomain, Timestamp timestamp, int rating){
+        this.url = url;
+        this.keyword = keyword;
+        this.bookmarksOfSameDomain = bookmarksOfSameDomain;
+        this.timestamp = timestamp;
+        this.rating = rating;
+    }
+    */
 
     public String getUrl() {
         return url;
