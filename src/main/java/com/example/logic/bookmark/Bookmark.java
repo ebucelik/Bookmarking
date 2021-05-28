@@ -78,7 +78,7 @@ public class Bookmark {
     }
 
     public List<Bookmark> getBookmarksOfSameDomain(Bookmark bookmark) {
-        return new ArrayList<Bookmark>(bookmark.bookmarksOfSameDomain);
+        return new ArrayList<>(bookmark.bookmarksOfSameDomain);
     }
 
     public List<String> removeKeyword(String keyword) {
