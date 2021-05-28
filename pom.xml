@@ -8,7 +8,6 @@
     <artifactId>FH-SEM4-TDD-Workshop-Bookmarking</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-
     <properties>
         <maven.surefire.plugin>2.22.2</maven.surefire.plugin>
         <maven.compiler.plugin>3.8.1</maven.compiler.plugin>
