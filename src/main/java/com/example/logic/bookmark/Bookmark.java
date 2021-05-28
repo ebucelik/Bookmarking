@@ -22,16 +22,6 @@ public class Bookmark {
         rating = 0;
     }
 
-    /*
-    public Bookmark(String url, List<String> keyword, List<Bookmark> bookmarksOfSameDomain, Timestamp timestamp, int rating){
-        this.url = url;
-        this.keyword = keyword;
-        this.bookmarksOfSameDomain = bookmarksOfSameDomain;
-        this.timestamp = timestamp;
-        this.rating = rating;
-    }
-    */
-
     public String getUrl() {
         return url;
     }
