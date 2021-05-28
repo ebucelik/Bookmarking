@@ -124,7 +124,7 @@ public class BookmarkHolder {
     }
 
     public List<Bookmark> sortBookmarksByRatingDesc(List<Bookmark> bookmarks){
-        if (bookmarks == null || bookmarks.size() <= 0)
+        if (bookmarks == null || bookmarks.isEmpty())
             return new ArrayList<>();
 
         bookmarks.sort(Comparator.comparingInt(Bookmark::getRating).reversed());
