@@ -50,7 +50,6 @@ public class Bookmark {
     public boolean addKeyword(String keyword) {
         if (url == null || keyword == null || url.trim().equals("") || keyword.trim().equals("")) return false;
 
-//        if (this.keyword.stream().anyMatch(element -> element.equals(keyword))) return false;
         boolean isOkay = true;
         for (String keywords : this.keyword) {
             if (keywords.equals(keyword))
