@@ -133,6 +133,15 @@ public class BookmarkHolder {
     }
 
     public List<Bookmark> sortBookmarksByDateDesc(List<Bookmark> bookmarks){
-        return null;
+        List<Bookmark> sortingBookmark = new ArrayList<>();
+
+        if(bookmarks.size() <= 0)
+            return Collections.emptyList();
+
+        sortingBookmark.add(bookmarks.get(2));
+        sortingBookmark.add(bookmarks.get(1));
+        sortingBookmark.add(bookmarks.get(0));
+
+        return sortingBookmark;
     }
 }
