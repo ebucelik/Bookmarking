@@ -170,7 +170,6 @@
                     </targetTests>
                     <outputFormats>
                         <outputFormat>XML</outputFormat>
-                        <outputFormat>HTML</outputFormat>
                     </outputFormats>
                     <mutators>
                         <mutator>DEFAULTS</mutator>
