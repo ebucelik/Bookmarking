@@ -574,4 +574,17 @@ public class BookmarkHolderTest {
         assertArrayEquals(expected.toArray(), result.toArray());
     }
 
+    @Test
+    public void ensureListOfBookmarksWillNotSortedByDateIfNull(){
+        // Arrange
+        List<Bookmark> expected = new ArrayList<>();
+        List<Bookmark> result = new ArrayList<>();
+        BookmarkHolder holder = new BookmarkHolder();
+
+        // Act
+        result = holder.sortBookmarksByDateDesc(null);
+
+        // Assert
+        assertArrayEquals(expected.toArray(), result.toArray());
+    }
 }
