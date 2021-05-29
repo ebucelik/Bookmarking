@@ -133,7 +133,10 @@ public class BookmarkHolder {
     }
 
     public List<Bookmark> sortBookmarksByDateDesc(List<Bookmark> bookmarks){
-        if (bookmarks == null || bookmarks.size() <= 0)
+        if (bookmarks == null)
+            return Collections.emptyList();
+
+        if(bookmarks.isEmpty())
             return Collections.emptyList();
 
         bookmarks.sort(Comparator.comparing(Bookmark::getTimestamp).reversed());
