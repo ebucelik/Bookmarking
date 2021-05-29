@@ -547,9 +547,11 @@ public class BookmarkHolderTest {
         holder.addUrlAsBookmark("http://www.instagram.com");
         holder.addUrlAsBookmark("http://www.google.at");
 
-        expected.add(holder.getBookmarks().get(2));
-        expected.add(holder.getBookmarks().get(1));
         expected.add(holder.getBookmarks().get(0));
+        expected.add(holder.getBookmarks().get(1));
+        expected.add(holder.getBookmarks().get(2));
+
+        expected.sort(Comparator.comparing(Bookmark::getTimestamp).reversed());
 
         // Act
         result = holder.sortBookmarksByDateDesc(holder.getBookmarks());
