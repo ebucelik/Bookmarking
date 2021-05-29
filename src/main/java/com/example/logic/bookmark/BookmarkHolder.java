@@ -131,7 +131,7 @@ public class BookmarkHolder {
 
         return bookmarks;
     }
-/*
+
     public List<Bookmark> sortBookmarksByDateDesc(List<Bookmark> bookmarks){
         if (bookmarks == null || bookmarks.isEmpty())
             return Collections.emptyList();
@@ -139,5 +139,5 @@ public class BookmarkHolder {
         bookmarks.sort(Comparator.comparing(Bookmark::getTimestamp).reversed());
 
         return bookmarks;
-    }*/
+    }
 }
