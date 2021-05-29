@@ -573,7 +573,7 @@ public class BookmarkHolderTest {
         // Assert
         assertArrayEquals(expected.toArray(), result.toArray());
     }
-/*
+
     @Test
     public void ensureListOfBookmarksWillNotSortedByDateIfNull(){
         // Arrange
@@ -586,5 +586,5 @@ public class BookmarkHolderTest {
 
         // Assert
         assertArrayEquals(expected.toArray(), result.toArray());
-    }*/
+    }
 }

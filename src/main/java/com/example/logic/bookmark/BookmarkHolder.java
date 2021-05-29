@@ -133,6 +133,9 @@ public class BookmarkHolder {
     }
 
     public List<Bookmark> sortBookmarksByDateDesc(List<Bookmark> bookmarks){
+        if (bookmarks == null)
+            return Collections.emptyList();
+
         if(bookmarks.isEmpty())
             return Collections.emptyList();
 
