@@ -486,5 +486,55 @@ public class BookmarkHolderTest {
         assertTrue(listEmpty);
     }
 
+    @Test
+    public void ensureListOfBookmarksWillSortedByRatingDesc(){
+        // Arrange
+        List<Bookmark> expected = new ArrayList<>();
+        List<Bookmark> result = new ArrayList<>();
+
+        BookmarkHolder holder = new BookmarkHolder();
+        holder.addUrlAsBookmark("http://www.facebook.com");
+        holder.addUrlAsBookmark("http://www.google.at");
+        holder.addUrlAsBookmark("http://www.google.at");
+        holder.addUrlAsBookmark("http://www.google.at");
+
+        expected.add(holder.getBookmarks().get(1));
+        expected.add(holder.getBookmarks().get(0));
+
+        // Act
+        result = holder.sortBookmarksByRatingDesc(holder.getBookmarks());
+
+        // Assert
+        assertArrayEquals(expected.toArray(), result.toArray());
+    }
+
+    @Test
+    public void ensureListOfBookmarksWillNotSortedIfEmpty(){
+        // Arrange
+        List<Bookmark> expected = new ArrayList<>();
+        List<Bookmark> result = new ArrayList<>();
+        BookmarkHolder holder = new BookmarkHolder();
+
+        // Act
+        result = holder.sortBookmarksByRatingDesc(holder.getBookmarks());
+
+        // Assert
+        assertArrayEquals(expected.toArray(), result.toArray());
+    }
+
+    @Test
+    public void ensureListOfBookmarksWillNotSortedIfNull(){
+        // Arrange
+        List<Bookmark> expected = new ArrayList<>();
+        List<Bookmark> result = new ArrayList<>();
+        BookmarkHolder holder = new BookmarkHolder();
+
+        // Act
+        result = holder.sortBookmarksByRatingDesc(null);
+
+        // Assert
+        assertArrayEquals(expected.toArray(), result.toArray());
+    }
+
 
 }
